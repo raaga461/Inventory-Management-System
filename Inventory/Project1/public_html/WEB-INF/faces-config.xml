@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee">
+    <navigation-rule>
+        <display-name>Login Screen</display-name>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/pages/home.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>userController</managed-bean-name>
+        <managed-bean-class>LoginPrivilages.UserController</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>comm</managed-bean-name>
+        <managed-bean-class>LoginPrivilages.CommonBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <!--Master Module beans start-->
+    <managed-bean>
+        <managed-bean-name>addcust</managed-bean-name>
+        <managed-bean-class>MastersManagedBeans.addcust</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>vendaddcust</managed-bean-name>
+        <managed-bean-class>MastersManagedBeans.vendaddcust</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>stocksales</managed-bean-name>
+        <managed-bean-class>MastersManagedBeans.stocksales</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>stockpurchase</managed-bean-name>
+        <managed-bean-class>MastersManagedBeans.stockpurchase</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>route</managed-bean-name>
+        <managed-bean-class>MastersManagedBeans.route</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>balance</managed-bean-name>
+        <managed-bean-class>MastersManagedBeans.balance</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>account</managed-bean-name>
+        <managed-bean-class>MastersManagedBeans.account</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>saleitem</managed-bean-name>
+        <managed-bean-class>MastersManagedBeans.salesitemmaster</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>itempurchase</managed-bean-name>
+        <managed-bean-class>MastersManagedBeans.purchase</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <!--Master Module beans close-->
+    <!--Accounts Module-->
+    <managed-bean>
+        <managed-bean-name>vouch</managed-bean-name>
+        <managed-bean-class>ManagedBeans.voucherentry</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>chequereturns</managed-bean-name>
+        <managed-bean-class>AccountsManagedBeans.chequereturns</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <!--Accounts Module-->
+    <!--Taxation Module-->
+    <managed-bean>
+        <managed-bean-name>addtaxation</managed-bean-name>
+        <managed-bean-class>TaxationManagedBeans.addtaxation</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>taxedit</managed-bean-name>
+        <managed-bean-class>TaxationManagedBeans.taxationedit</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <!--Taxation Module-->
+    <!--Settings Module Start-->
+    <managed-bean>
+        <managed-bean-name>ph</managed-bean-name>
+        <managed-bean-class>settingsmanagedbeans.pdfmanagedbean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>letter</managed-bean-name>
+        <managed-bean-class>OfficialLetter.letter</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>compa</managed-bean-name>
+        <managed-bean-class>settingsmanagedbeans.company</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>change</managed-bean-name>
+        <managed-bean-class>settingsmanagedbeans.chngpwd</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <!--Seetings Module End-->
+</faces-config>

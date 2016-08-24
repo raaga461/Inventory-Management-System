@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac5731f8-0962-42f8-8bf6-fcab954490f4">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="489"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#CCCCFF"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#CC8FAD">
+		<box>
+			<pen lineWidth="0.5" lineColor="#CCCCFF"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#E6CFDA">
+		<box>
+			<pen lineWidth="0.5" lineColor="#CCCCFF"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#CCCCFF"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#CCCCFF"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#CC8FAD">
+		<box>
+			<pen lineWidth="0.5" lineColor="#CCCCFF"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#E6CFDA">
+		<box>
+			<pen lineWidth="0.5" lineColor="#CCCCFF"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#CCCCFF"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#BFE0FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#E6F2FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#00BFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#00BFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFEFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="aaa" uuid="656addd2-7aa8-4701-a887-6b1abb558c81">
+		<parameter name="from" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="to" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT cfbill,cfdate,period,cyear,cname,tin,cfsno,cfout,cfamt,status   FROM CFormSubmit WHERE cfdate between $P{from} and $P{to}]]>
+		</queryString>
+		<field name="cfbill" class="java.lang.Integer"/>
+		<field name="cfdate" class="java.sql.Timestamp"/>
+		<field name="period" class="java.lang.String"/>
+		<field name="cyear" class="java.lang.String"/>
+		<field name="cname" class="java.lang.String"/>
+		<field name="tin" class="java.lang.String"/>
+		<field name="cfsno" class="java.lang.String"/>
+		<field name="cfout" class="java.lang.Double"/>
+		<field name="cfamt" class="java.lang.Double"/>
+		<field name="status" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<parameter name="parameter2" class="java.lang.String"/>
+	<parameter name="parameter3" class="java.lang.String"/>
+	<parameter name="parameter4" class="java.lang.String"/>
+	<parameter name="parameter5" class="java.lang.String"/>
+	<parameter name="parameter6" class="java.lang.String"/>
+	<parameter name="parameter7" class="java.lang.String"/>
+	<parameter name="parameter8" class="java.lang.String"/>
+	<parameter name="parameter9" class="java.lang.String"/>
+	<parameter name="head" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="place" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dat" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="to" class="java.lang.String"/>
+	<parameter name="dear" class="java.lang.String"/>
+	<parameter name="msg" class="java.lang.String"/>
+	<parameter name="yours" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="parameter15" class="java.lang.String"/>
+	<parameter name="parameter16" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from Tax]]>
+	</queryString>
+	<field name="taxno" class="java.lang.Integer"/>
+	<field name="region" class="java.lang.String"/>
+	<field name="taxname" class="java.lang.String"/>
+	<field name="tax" class="java.lang.Double"/>
+	<field name="cf" class="java.lang.String"/>
+	<field name="cftax" class="java.lang.Double"/>
+	<field name="notes" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="147" splitType="Stretch">
+			<textField>
+				<reportElement uuid="bf3680e5-c471-4a88-ad7c-1becd6f2fc8c" x="0" y="0" width="297" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b35bba64-2040-40e2-9ee4-f1246c9f492f" x="92" y="20" width="463" height="45" forecolor="#FF0000"/>
+				<textElement>
+					<font fontName="Arial" size="30" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bd269c80-07f8-4d90-bb7b-c22f4b66730a" x="398" y="0" width="157" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4290eeef-e078-4230-bb64-f3d347e9601d" x="517" y="19" width="38" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter7}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="fe7d4fc6-9b20-4b8c-b8b0-60b27862aa37" x="3" y="136" width="552" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="310dd607-d830-4dde-bbb4-615902730853" x="175" y="115" width="208" height="22" forecolor="#669900"/>
+				<textElement>
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="082b00be-ae3e-4f27-9681-6aa94955e689" x="124" y="75" width="393" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4adc588f-73d9-4c49-b9bb-57288b90957e" x="111" y="55" width="430" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1674f8ea-88e8-4f97-bc85-655ec2e66509" x="142" y="95" width="362" height="20" forecolor="#0099FF"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter8}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="d9764129-7987-4ebe-acc2-ce0465f333a6" x="3" y="19" width="89" height="108"/>
+				<imageExpression><![CDATA[$P{parameter9}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="68" splitType="Stretch">
+			<rectangle radius="4">
+				<reportElement uuid="f9b0d641-0241-4239-84a1-90d71b3c3686" x="92" y="13" width="393" height="31" isRemoveLineWhenBlank="true" forecolor="#0033FF" backcolor="#0066FF"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="2334003c-622f-41af-ad7e-3f508c28fa69" x="92" y="13" width="393" height="31" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{head}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="3"/>
+	</detail>
+	<summary>
+		<band height="548" splitType="Stretch">
+			<textField>
+				<reportElement uuid="0faefd67-00b9-41d8-8ee2-68ab0b1ee26e" x="364" y="-3" width="177" height="20" forecolor="#666666"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Segoe UI Semibold" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{place}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="64469a5d-ed88-4af0-a3cb-88e28f8e9408" x="42" y="55" width="194" height="96" forecolor="#666666"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Segoe UI Semibold" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{to}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="247ee850-57a6-4b07-ae13-e52b26f9b4f7" x="42" y="167" width="399" height="20" forecolor="#333333"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Segoe UI Semibold" size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dear}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="db15df92-3856-4e3d-a214-df10eff76d11" x="42" y="204" width="499" height="231" forecolor="#666666"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Segoe UI Semibold" size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{msg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e64c43ef-546d-4ac6-8049-3087a4e465cc" x="297" y="490" width="244" height="20" forecolor="#666666"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI Semibold" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{yours}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="59405586-16a8-41f6-9fce-5cf3114a8dd7" x="297" y="525" width="244" height="20" forecolor="#00CCFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Segoe UI Semibold" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

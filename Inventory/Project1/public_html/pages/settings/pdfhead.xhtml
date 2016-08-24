@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <style type="text/css">
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .ui-layout-unit-content {
+                    background-image: url('images/add.jpg');
+                    background-size: 100%
+                }
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+            </style>
+        </h:head>
+        <h:body>
+            <p:growl id="msg"/>
+             
+            <ui:include src="/pages/commons/header.xhtml"/>
+             
+            <h:form id="pdf">
+            <br></br>
+                <h1 align="center">PDF Report Headings</h1>
+                <br></br>
+                <center>
+                    <table cellpadding="7" cellspacing="7" align="center">
+                        <tr>
+                            <td>
+                                <h:outputLabel value="TRADE MARK REGD.COMPANY SINCE"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{ph.c1.trade}" required="true" requiredMessage="Enter Trade Mark"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Company"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{ph.c1.cname}" required="true" requiredMessage="Enter Company"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Address"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputTextarea rows="4" cols="20" value="#{ph.c1.adress}"
+                                                 requiredMessage="Enter Address"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Phone number"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:keyboard keypadOnly="true" value="#{ph.c1.phone}" required="true"
+                                            requiredMessage="Enter Phone Number"/>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Email-id"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{ph.c1.email}" required="true" requiredMessage="Enter Email"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="TIN Number"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{ph.c1.tin}" required="true" requiredMessage="Enter TIN Number"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="IFS Code"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{ph.c1.ifs}" required="true" requiredMessage="Enter IFS Number"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Account Number"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{ph.c1.acc}" required="true"
+                                             requiredMessage="Enter Account Number"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Add Logo"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:fileUpload fileUploadListener="#{ph.fileupload}" value="#{ph.imagefile}" auto="true"
+                                              multiple="false"/>
+                                 
+                                <p:graphicImage value="#{ph.c1.img}" required="true"></p:graphicImage>
+                            </td>
+                        </tr>
+                    </table>
+                    <table cellpadding="17" cellspacing="17" align="center">
+                        <tr>
+                            <td>
+                                <p:commandButton value="Save" actionListener="#{ph.onAddSelect}" update=":msg"></p:commandButton>
+                                 
+                                <p:commandButton value="Refresh" update=":pdf" actionListener="#{ph.refresh}"
+                                                 icon="ui-icon-search" rendered="false"></p:commandButton>
+                                 
+                                <p:commandButton value="Exit" rendered="false"></p:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </h:form>
+             
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

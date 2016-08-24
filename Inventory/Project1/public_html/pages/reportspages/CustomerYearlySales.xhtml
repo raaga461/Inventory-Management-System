@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"  xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+           <ui:include src="/pages/commons/header.xhtml"/>
+             <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">Customer Yearly Sales</h1> 
+        <table>
+                <tr>
+                    <td>
+                        <h:form id="form1">
+                            <h:panelGrid columns="4" cellpadding="5">
+                                <p:outputLabel value="From_Date" style="font-weight:bold;"/>
+                                <p:calendar id="cal1" value="#{yearly.ysb.date2}" pattern="dd-MMM-yy" immediate="true"
+                                            navigator="true">
+                                    <p:ajax event="dateSelect" listener="#{yearly.dateSelect}" update="cal1,:form2:dataTable"/>
+                                </p:calendar>
+                                <p:outputLabel value="To_Date" style="font-weight:bold;"/>
+                                <p:calendar id="cal" value="#{yearly.ysb.date1}" pattern="dd-MMM-yy" navigator="true"
+                                            immediate="true">
+                                    <p:ajax event="dateSelect" listener="#{yearly.todateSelect}" update="cal,:form2:dataTable"/>
+                                </p:calendar>
+                                <h:outputLabel value="Tax_Type" style="font-weight:bold;"/>
+                                <p:selectOneMenu value="#{yearly.ysb.taxType}">
+                                    <f:selectItems value="#{yearly.taxList}"/>
+                                    <p:ajax update=":form2:dataTable" listener="#{yearly.typeChanged}" />
+                                </p:selectOneMenu>
+                                <h:outputText value="Party_Type "  style="font-weight:bold;"/>
+                                  <p:selectOneMenu value="#{yearly.ysb.partyType}">
+                                    <f:selectItems value="#{yearly.partyList}"/>
+                                    <p:ajax update=":form2:dataTable" listener="#{yearly.partyChanged}" />
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </h:form>
+                    </td>
+                    <td align="center" valign="middle">
+                        <p:commandButton value="Dispaly" action="#{yearly.tableData}" update=":form2:dataTable"/>
+                         
+                        <p:commandButton value="Print"  action="#{yearly.print}"  />
+                         
+                        <p:commandButton value="Refresh" actionListener="#{yearly.refresh}" update=":form2,:form1"/>
+                    </td>
+                </tr>
+            </table>
+            <h:form id="form2">
+                <p:dataTable id="dataTable" var="dat" value="#{yearly.tdata}" paginator="true" rows="10">
+                    <f:facet name="header">Sales Details</f:facet>
+                    <p:column headerText="BILLNO">
+                        <h:outputText value="#{dat.billno}"/>
+                    </p:column>
+                    <p:column headerText="ACCNO">
+                        <h:outputText value="#{dat.acno}"/>
+                    </p:column>
+                    <p:column headerText="ACCNAME">
+                        <h:outputText value="#{dat.acname}"/>
+                    </p:column>
+                    <p:column headerText="CITY">
+                        <h:outputText value="#{dat.city}"/>
+                    </p:column>
+                    <p:column headerText="REP">
+                        <h:outputText value="#{dat.rep}"/>
+                    </p:column>
+                    <p:column headerText="INV_DATE">
+                        <h:outputText value="#{dat.invdate}"/>
+                    </p:column>
+                    <p:column headerText="INV_NO" footerText="Total :">
+                        <h:outputText value="#{dat.invno}"/>
+                    </p:column>
+                    <p:column headerText="INV_AMT" footerText="#{yearly.amount}">
+                        <h:outputText value="#{dat.invamt}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+             <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

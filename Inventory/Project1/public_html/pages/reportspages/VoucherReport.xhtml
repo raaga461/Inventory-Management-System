@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"  xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+         <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+     <h:body>
+     <ui:include src="/pages/commons/header.xhtml"/>
+            <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">Voucher Report</h1>   
+                <hr/>
+            <h:form id="form1">
+            <p:growl id="msg" autoUpdate="true"/>
+            
+                <h:panelGrid columns="9" cellpadding="5">
+                    <p:outputLabel value="From_Date" style="font-weight:bold;"/>
+                    <p:calendar id="cal1" value="#{voucher.vrb.date2}" pattern="dd-MMM-yy" immediate="true" navigator="true">
+                     <p:ajax event="dateSelect" listener="#{voucher.dateSelect}" update="cal1,:form2:dataTable" />  
+                    </p:calendar>
+                    <p:outputLabel value="To_Date" style="font-weight:bold;"/>
+               <p:calendar id="cal" value="#{voucher.vrb.date1}" pattern="dd-MMM-yy" navigator="true" immediate="true" >
+               
+               <p:ajax event="dateSelect" listener="#{voucher.todateSelect}" update="cal,:form2:dataTable" />  
+               </p:calendar>
+                    <h:outputLabel value="Tax_Type" style="font-weight:bold;"/>
+                    <p:selectOneMenu value="#{voucher.vrb.type}">
+                        <f:selectItems value="#{voucher.VList}"/>
+                    <p:ajax update=":form2:dataTable" listener="#{voucher.typeChanged}"/>
+                    </p:selectOneMenu>
+                     <p:commandButton value="Dispaly" action="#{voucher.tableData}" update=":form2:dataTable"/>
+                <p:commandButton value="Print" actionListener="#{voucher.print}"/>
+                  <p:commandButton value="Refresh" actionListener="#{voucher.refresh}" update=":form2,:form1" />
+                    
+                </h:panelGrid>
+               
+            </h:form>
+             
+            <br/>
+             
+            <h:form id="form2">
+                <p:dataTable id="dataTable" var="dat" value="#{voucher.tdata}" paginator="true" rows="10">
+                    <f:facet name="header">Sales Details</f:facet>
+                    <p:column headerText="Vou.NO">
+                        <h:outputText value="#{dat.vno}"/>
+                    </p:column>
+                    <p:column headerText="Vou.Date">
+                        <h:outputText value="#{dat.date}"/>
+                    </p:column>
+                    <p:column headerText="Vou.Type">
+                        <h:outputText value="#{dat.vtype}"/>
+                    </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{dat.vname}"/>
+                    </p:column>
+                    <p:column headerText="PayType">
+                        <h:outputText value="#{dat.paytype}"/>
+                    </p:column>
+                    <p:column headerText="DD/Chq No">
+                        <h:outputText value="#{dat.chkno}"/>
+                    </p:column>
+                    <p:column headerText="Amount">
+                        <h:outputText value="#{dat.vamount}"/>
+                    </p:column>
+                 
+                </p:dataTable>
+                
+                <h:commandLink>
+                  <p:graphicImage value="/images/ai.png" />  
+                 <p:dataExporter type="pdf" target="dataTable" fileName="cars" />  
+                </h:commandLink>  
+
+            </h:form>
+                <ui:include src="/pages/commons/footer.xhtml"/> 
+        </h:body>
+    </html>
+</f:view>

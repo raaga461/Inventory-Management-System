@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+      
+        <h:body>
+        <ui:include src="/pages/commons/header.xhtml"/>
+          <h1 align="center">Invoice Printing</h1>
+     <br></br>
+     <br></br>
+        <font size="4" >
+            <h:form>
+            <p:growl id="grw" autoUpdate="true"/>
+            <center>
+            <table align="center" cellspacing="4">
+            <tr align="center" valign="middle">
+            <td>
+            <p:panel style="width:500px,height:1900px">
+            <h:panelGrid columns="2" cellspacing="6">
+               <h:outputLabel value="Invoice  Type :"/>
+              <p:selectOneMenu  value="#{invoicep.invoicetype}"  >
+                              
+                                <f:selectItem itemLabel="Select" itemValue="Select"/>
+                                <f:selectItem itemLabel="Sales Invoice" itemValue="Sales Invoice"/>
+                                <f:selectItem itemLabel="Purchase Invoice" itemValue="Purchase Invoice"/>
+                                   <p:ajax event="change" listener="#{invoicep.invoiceselect}"  />  
+                                
+                            </p:selectOneMenu>
+                             
+            <h:outputLabel value="Invoice Date :" />
+            <p:calendar id="cal" navigator="true" immediate="true"    value="#{invoicep.d}" pattern="yyyy-MM-dd">
+                <p:ajax event="dateSelect" listener="#{invoicep.dateSelect}" update="ino" />  
+            
+            </p:calendar>
+            <h:outputLabel value="Sales Type :"/>
+            
+              <p:selectOneMenu id="stype"  value="#{invoicep.salestype}">
+                            
+                              
+                                <f:selectItems value="#{invoicep.saleslist}" />
+                             <p:ajax event="change" listener="#{invoicep.taxselect}"  update="ino" />  
+                            </p:selectOneMenu>
+                             <h:outputLabel value="Invoice NO :"/>
+              <p:selectOneMenu id="ino" value="#{invoicep.invno}">
+                        <f:selectItem itemLabel="Select" itemValue="Select"/>
+                            
+                                <f:selectItems  value="#{invoicep.invoiceList}"/>
+                            
+                                  <p:ajax event="change" listener="#{invoicep.invchange}"  update="pg,pg1" />  
+                            </p:selectOneMenu>
+                            
+            </h:panelGrid>
+            <h:panelGrid columns="3" cellspacing="4">
+            <p:commandButton value="Print" action="#{invoicep.print}" />
+            <p:commandButton value="Print All" action="#{invoicep.printall}"/>
+            <p:commandButton value="Refresh" />
+            </h:panelGrid>
+            </p:panel>
+            </td>
+            <td>
+            
+          
+             <p:panel style="width:400px">
+            <h:panelGrid id="pg" columns="4">
+            <h:outputLabel value="Ref No :"/>
+            <h:inputText id="rfno" value="#{invoicep.ipb.reffno}" readonly="false" style="width:70px"/>
+             <h:outputLabel value="Bill No :"/>
+            <h:inputText id="bino" value="#{invoicep.ipb.billtype}" readonly="false" style="width:70px"/>
+            </h:panelGrid>
+              <h:panelGrid id="pg1" columns="2">
+            <h:outputLabel value="Party Name :"/>
+            <h:inputText id="pnm"  value="#{invoicep.ipb.cname}" readonly="false"/>
+             <h:outputLabel value="Address :"/>
+            <h:inputTextarea id="add" rows="4" cols="22" readonly="false"  value="#{invoicep.ipb.address}" />
+            <h:outputLabel  value="City :" />
+            <h:inputText id="city"  value="#{invoicep.ipb.city}" readonly="false"/>
+              <h:outputLabel  value="Invoice Value :" />
+            <h:inputText id="inval" value="#{invoicep.ipb.invval}" readonly="false"/>
+            </h:panelGrid>
+            </p:panel>
+            </td>
+            </tr>
+            </table>
+            </center>
+            </h:form>
+            <ui:include src="/pages/commons/footer.xhtml"/>
+            </font>
+        </h:body>
+    </html>
+</f:view>

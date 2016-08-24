@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title>Facelet Title</title>
+            <style type="text/css">
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .ui-layout-unit-content {
+                    background-image: url('images/add.jpg');
+                    background-size: 100%
+                }
+            </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+        <ui:include src="/pages/commons/header.xhtml"/>
+            <p:growl id="msg" autoUpdate="true"/>
+             
+           
+                    <h:form id="form">
+                        <center>
+                            <h1>CHANGE PASSWORD</h1>
+                        </center>
+                        <center>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="Enter user name: " style="font-size: larger"
+                                                       rendered="false"/>
+                                    </td>
+                                    <td>
+                                        <h:inputText value="#{change.pd.username}" style="font-size: larger"
+                                                     rendered="false"></h:inputText>
+                                    </td>
+                                </tr>
+                                 
+                                <br></br>
+                                 
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="Enter old password: " style="font-size:  larger"/>
+                                    </td>
+                                    <td>
+                                        <p:password value="#{change.pd.password}" style="font-size: larger"
+                                                    type="password" required="true"
+                                                    requiredMessage="Enter Old Password"></p:password>
+                                    </td>
+                                </tr>
+                                 
+                                <br></br>
+                                 
+                                <tr>
+                                    <td>
+                                        <h:outputLabel value="Enter new password: " style="font-size: larger"/>
+                                    </td>
+                                    <td>
+                                        <p:password value="#{change.pd.newpassword}" style="font-size: larger"
+                                                    type="password" required="true"
+                                                    requiredMessage="Enter New Password"></p:password>
+                                    </td>
+                                </tr>
+                                 
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </center>
+                        <center>
+                            <br></br>
+                            <p:commandButton value="SAVE" type="submit" actionListener="#{change.onSave}" update=":msg"></p:commandButton>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <p:commandButton value="RESET" actionListener="#{change.reset}" update=":form"></p:commandButton>
+                        </center>
+                    </h:form>
+            <ui:include src="/pages/commons/footer.xhtml"/>
+               
+        </h:body>
+    </html>
+</f:view>

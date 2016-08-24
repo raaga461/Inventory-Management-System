@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title></title>
+            <style type="text/css">
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .ui-layout-unit-content {
+                    background-image: url('images/add.jpg');
+                    background-size: 100%
+                }
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+            </style>
+        </h:head>
+        <h:body>
+            <ui:include src="/pages/commons/header.xhtml"/>
+            <center>
+                <h1>Balance Details</h1>
+            </center>
+            <h:form id="form">
+                <center>
+                    <table>
+                        <tr>
+                            <td>
+                                <p:outputLabel value="Type:"></p:outputLabel>
+                            </td>
+                            <td>
+                                <p:selectOneMenu value="#{balance.type}">
+                                    <f:selectItem itemLabel="All" itemValue="%"></f:selectItem>
+                                    <f:selectItem itemLabel="Debit" itemValue="Debit"></f:selectItem>
+                                    <f:selectItem itemLabel="Credit" itemValue="Credit"></f:selectItem>
+                                    <p:ajax event="change" listener="#{balance.balancedetails}" update="dt"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                    </table>
+                    <p:dataTable id="dt" var="sd" value="#{balance.array}" paginator="true" rows="5" style="width:700px"
+                                 rowKey="#{sd.accesscode}" editable="true">
+                        <p:ajax event="cellEdit" listener="#{balance.onCellEdit}" update=":form"/>
+                        <p:column>
+                            <p:cellEditor>
+                                <f:facet name="header">
+                                    <h:outputText value="AccNo"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.accesscode}"/>
+                                <f:facet name="output">
+                                    <h:outputText value="#{sd.accesscode}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="modelInput" value="#{sd.accesscode}" style="width:96%"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="CompanyName"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.companyname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Type"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.optype}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Balance"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.currentbalance}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="PDF" actionListener="#{balance.pdfgen}"></p:commandButton>
+                </center>
+            </h:form>
+             
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

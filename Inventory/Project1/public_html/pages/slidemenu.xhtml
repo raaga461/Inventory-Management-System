@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head></h:head>
+        <h:body>
+           <h:form>
+                    <table>
+                        <tr>
+                            <p:panelMenu style="width:250px">
+                                <tr>
+                                    <p:submenu label="Accounts">
+                                        <p:menuitem value="Voucher Entry" actionListener="#{comm.getNavigator}"/>
+                                        <p:menuitem value="ChequeReturns" actionListener="#{comm.getNavigator}"/>
+                                    </p:submenu>
+                                </tr>
+                                <tr>
+                                    <p:submenu label="Taxation">
+                                        <p:submenu label="Taxation Master">
+                                            <p:menuitem value="Add Taxation" actionListener="#{comm.getNavigator}"/>
+                                            <p:menuitem value="Edit Taxation" actionListener="#{comm.getNavigator}"/>
+                                        </p:submenu>
+                                    </p:submenu>
+                                    &gt;
+                                </tr>
+                                <tr>
+                                    <p:submenu label="C-Form Master">
+                                        <p:menuitem value="C-Form submit"/>
+                                        <p:menuitem value="C-Form Data by Period"/>
+                                        <p:menuitem value="C-Form Data by Dates"/>
+                                        <p:menuitem value="C-Form Data by Period"/>
+                                        <p:menuitem value="C-Form Year settings"/>
+                                        <p:submenu label="C-FORM Reports">
+                                            <p:menuitem value="C-Form summary"/>
+                                            <p:menuitem value="C-Form summary by party wise"/>
+                                            <p:menuitem value="C-Form summary by rep wise"/>
+                                        </p:submenu>
+                                    </p:submenu>
+                                </tr>
+                                <p:separator/>
+                            </p:panelMenu>
+                        </tr>
+                    </table>
+                </h:form>
+        </h:body>
+    </html>
+</f:view>

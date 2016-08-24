@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+         <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+           <h:body>
+           <ui:include src="/pages/commons/header.xhtml"/>
+         <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">Tax Account Details</h1>   
+                <hr/>
+            <h:form id="form1">
+            
+                <table>
+                    <tr>
+                        <td width="70%">
+                            <h:panelGrid columns="2"  cellspacing="4">
+                              
+                                <p:outputLabel value="Date :" style="font-weight:bold;"/>
+                              <h:outputText value="#{taxdetails.date}" />
+                             
+                            </h:panelGrid>
+                        </td>
+                        <td align="center" valign="middle">
+                            <p:commandButton value="Dispaly" action="#{taxdetails.tableData}" update=":form2:dataTable"/>
+                            <p:commandButton value="Refresh" action="#{taxdetails.refresh}" update=":form1,:form2"/>
+                            <p:commandButton value="Print" action="#{taxdetails.print}"/>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+             
+            <h:form id="form2">
+            <table>
+            <tr>
+            
+            <td >
+            <p:dataTable id="dataTable" var="dat" value="#{taxdetails.tdata}" paginator="true" rows="10"
+                             resizableColumns="true" liveResize="true">
+                    <f:facet name="header">Tax Account Details</f:facet>
+                    <p:column headerText="TAX NO">
+                    <f:facet name="header" >
+                        <h:outputText value="Tax NO"/>
+                       </f:facet>
+                        <h:outputText value="#{dat.taxno}"/>
+                     
+                    </p:column>
+                    <p:column headerText="REGION">
+                        <h:outputText value="#{dat.region}"/>
+                    </p:column>
+                    <p:column headerText="TAX NAME">
+                        <h:outputText value="#{dat.taxname}"/>
+                    </p:column>
+                    <p:column headerText="TAX PERCENT">
+                        <h:outputText value="#{dat.taxpercent}"/>
+                    </p:column>
+                    <p:column headerText="CFORM REQ">
+                        <h:outputText value="#{dat.cfreq}"/>
+                    </p:column>
+                    <p:column headerText="CF-FORM TAX">
+                        <h:outputText value="#{dat.cftax}"/>
+                    </p:column>
+                
+                  </p:dataTable>
+                </td>    
+                </tr>
+                </table>
+            </h:form>
+             <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <style type="text/css">
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .ui-layout-unit-content {
+                    background-image: url('images/add.jpg');
+                    background-size: 100%
+                }
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+            </style>
+        </h:head>
+        <h:body>
+            <p:growl id="msg"/>
+             
+            <ui:include src="/pages/commons/header.xhtml"/>
+             
+            <center>
+                <font color="#050505"></font>
+            </center>
+             
+            <h:form id="prabha">
+                <center>
+                    <h1>
+                        <b>COMPANY DETAILS</b>
+                    </h1>
+                </center>
+                <p:menubar/>
+                <br/>
+                <table width="100%" align="center" style="padding-left:7%;padding-right:7%">
+                    <tr>
+                        <td>Company Id</td>
+                        <td>
+                            <p:inputText id="focus" title="Please enter Company Id" onfocus="true"
+                                         value="#{compa.c1.id}" required="true"
+                                         requiredMessage="please enter company Id" readonly="true"></p:inputText>
+                             
+                            <p:watermark for="focus" value="required"/>
+                        </td>
+                        <td>City</td>
+                        <td>
+                            <p:selectOneMenu id="city" value="#{compa.c1.city}" required="true"
+                                             requiredMessage="enter a city">
+                                <f:selectItem itemLabel="Select city" itemValue=""/>
+                                <f:selectItem itemLabel="Vijayawada" itemValue="VIJAYAWADA"/>
+                                <f:selectItem itemLabel="Hyderabad" itemValue="Hyderabad"/>
+                                <f:selectItem itemLabel="Vizag" itemValue="Vizag"/>
+                                <f:selectItem itemLabel="Guntur" itemValue="Guntur"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td>Phone</td>
+                        <td>
+                            <p:keyboard id="phone" title="please enter phone number" value="#{compa.c1.phone}"
+                                        required="true" requiredMessage="enter Phone" keypadOnly="true"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td>Company Name</td>
+                        <td>
+                            <p:inputText id="cname" title="Please enter Company name" value="#{compa.c1.cname}"
+                                         required="true" requiredMessage="enter Company Name"></p:inputText>
+                        </td>
+                        <td>State</td>
+                        <td>
+                            <p:selectOneMenu id="state" value="#{compa.c1.state}" required="true"
+                                             requiredMessage="enter State">
+                                <f:selectItem itemLabel="Select state" itemValue=""/>
+                                <f:selectItem itemLabel="Andhra Pradesh" itemValue="AP"/>
+                                <f:selectItem itemLabel="karnataka" itemValue="karnataka"/>
+                                <f:selectItem itemLabel="maharastra" itemValue="maharastra"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td>Mobile</td>
+                        <td>
+                            <p:keyboard id="mobile" title="plese enter mobile number" keypadOnly="true"
+                                        value="#{compa.c1.mobile}" maxlength="13" onblur="true" required="true"
+                                        requiredMessage="enter Mobile Number"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td>Reg. Number</td>
+                        <td>
+                            <p:inputText id="focus1" title="Please enter Registrarion number" value="#{compa.c1.rno}"
+                                         required="true" requiredMessage="please enter registration number"></p:inputText>
+                        </td>
+                        <td>Country</td>
+                        <td>
+                            <p:inputText id="country" title="please enter country" required="true"
+                                         requiredMessage="please enter country " value="#{compa.c1.country}">
+                                <!--required="#{not empty param[save.clientId] and myBean.required}"-->
+                                <!-- <f:validateRequired disabled="#{!param['VALIDATE']}"/>-->
+                            </p:inputText>
+                        </td>
+                        <td>E Mail</td>
+                        <td>
+                            <p:inputText id="email" title="Please enter Email" value="#{compa.c1.email}" required="true"
+                                         requiredMessage="enter Email">
+                                <!--<f:validateRegex pattern="^[_A-Za-z0-9-\\\\\\\\+]+(\\\\\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\\\\\\\.[A-Za-z0-9]+)*(\\\\\\\\.[A-Za-z]{2,})$"/>-->
+                            </p:inputText>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td>Legal Name</td>
+                        <td>
+                            <p:inputText id="lname" title="Please enter Legal name" value="#{compa.c1.lname}"
+                                         required="true" requiredMessage="enter Legal Name"/>
+                        </td>
+                        <td>Pincode</td>
+                        <td>
+                            <p:keyboard id="pincode" title="please enter pincode" value="#{compa.c1.pincode}"
+                                        required="true" requiredMessage="enter Pincode" keypadOnly="true"/>
+                        </td>
+                        <td>Fax</td>
+                        <td>
+                            <p:inputText id="fax" title="please enter FAX" value="#{compa.c1.fax}" max="15"
+                                         required="true" requiredMessage="enter FAX"/>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td>Website</td>
+                        <td>
+                            <p:inputText id="website" value="#{compa.c1.website}" required="true"
+                                         requiredMessage="enter website"/>
+                             
+                            <p:watermark for="focus" value="reqired"/>
+                        </td>
+                        <td>Address</td>
+                        <td>
+                            <p:inputText id="adress" title="Please enter Adress" autoResize="false"
+                                         value="#{compa.c1.adress}" required="true" requiredMessage="enter Adress"/>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br/>
+                <p:menubar/>
+                <br/>
+                <table width="100%" align="center" style="padding-left:7%;padding-right:7%">
+                    <tr>
+                        <td>OpeningBalance</td>
+                        <td>
+                            <p:inputText id="open" title="please enter opening balance" value="#{compa.c1.ob}"
+                                         required="true" requiredMessage="enter Opening Balance"
+                                         converterMessage="Enter Numbers Only At Opening Balance"/>
+                        </td>
+                        <td>Bank</td>
+                        <td>
+                            <p:inputText id="bank" title="please enter Bank" value="#{compa.c1.bank}" required="true"
+                                         requiredMessage="enter Bank">
+                                <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                            </p:inputText>
+                        </td>
+                        <td>VAT</td>
+                        <td>
+                            <p:inputText id="vat" title="please enter VAT" value="#{compa.c1.vat}" required="true"
+                                         requiredMessage="enter VAT"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>ClosingBalance</td>
+                        <td>
+                            <p:inputText id="close" title="please enter closing balance" value="#{compa.c1.cb}"
+                                         required="true" requiredMessage="enter Closing Balance"
+                                         converterMessage="Enter Numbers Only At Closing Balance"/>
+                        </td>
+                        <td>A\c Number</td>
+                        <td>
+                            <p:inputText id="account" title="please enter tour account number" value="#{compa.c1.acc}"
+                                         required="true" requiredMessage="enter Account Number"/>
+                        </td>
+                        <td>TIN</td>
+                        <td>
+                            <p:inputText id="tin" title="please enter TIN" required="true"
+                                         requiredMessage="please enter TIN" value="#{compa.c1.tin}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CurrentBalance</td>
+                        <td>
+                            <p:inputText id="current" title="please enter current balance" value="#{compa.c1.current}"
+                                         required="true" requiredMessage="enter Current Balance"
+                                         converterMessage="Enter Numbers Only At Current Balance"/>
+                        </td>
+                        <td>IFS</td>
+                        <td>
+                            <p:inputText id="ifs" title="please enter IFS" required="false"
+                                         requiredMessage="please enter IFS" value="#{compa.c1.ifs}">
+                                <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                            </p:inputText>
+                        </td>
+                        <td>PAN</td>
+                        <td>
+                            <p:inputText id="pan" title="please enter PAN card number" value="#{compa.c1.pan}" min="9"
+                                         max="10" required="true" requiredMessage="enter PAN Card Number"/>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <table align="center">
+                    <tr>
+                        <td>
+                            <p:commandButton value="Save" onclick="dl.show()" disabled="#{compa.status==false }"
+                                             rendered="false">
+                                <f:param name="VALIDATE" value="true"/>
+                            </p:commandButton>
+                             
+                            <p:dialog header="Inventory Management Suite" widgetVar="dl" modal="false"
+                                      resizable="false">
+                                <br/>
+                                <center>
+                                    <h:outputText value="Confirm To Save??"/>
+                                </center>
+                                <br/>
+                                <p:panelGrid columns="2">
+                                    <p:commandButton value="YES" update=":prabha,:msg"
+                                                     actionListener="#{compa.onAddSelect}"></p:commandButton>
+                                    <p:commandButton value="NO" onclick="dl.hide()"/>
+                                </p:panelGrid>
+                            </p:dialog>
+                        </td>
+                        <td>
+                            <p:commandButton value="Update" onclick="de.show();"></p:commandButton>
+                        </td>
+                        <td>
+                            <p:commandButton value="Edit" onclick="ser.show();" rendered="false"></p:commandButton>
+                        </td>
+                        <td>
+                            <p:commandButton update=":prabha:msg" value="Delete" onclick="dlg.show()" type="button"
+                                             rendered="false"/>
+                             
+                            <p:dialog header="Inventory Management Suite" widgetVar="de" modal="false"
+                                      resizable="false">
+                                <br/>
+                                <center>
+                                    <blink>Update the row ??</blink>
+                                    <br/>
+                                    <hr/>
+                                    <br/>
+                                    <h:panelGrid columns="2">
+                                        <p:commandButton value="Yes" update=":prabha,:msg"
+                                                         actionListener="#{compa.onUpdateSelect}"/>
+                                        <p:commandButton value="No" onclick="de.hide()"/>
+                                    </h:panelGrid>
+                                </center>
+                            </p:dialog>
+                        </td>
+                        <td>
+                            <p:commandButton value="Exit" ajax="false" onclick="window.close()" rendered="false"></p:commandButton>
+                        </td>
+                    </tr>
+                </table>
+                <p:dialog id="dialog11" header=" Search" widgetVar="ser" resizable="false" showEffect="fade"
+                          hideEffect="explode" style="width: 800px">
+                    <p:dataTable var="sd" value="#{compa.al}" selection="#{compa.c}" paginator="true" rows="15"
+                                 style="width:700px" selectionMode="single" rowKey="#{sd.id}">
+                        <font color="#050505">
+                            List of Users
+                            <p:ajax event="rowSelect" update=":prabha" listener="#{compa.onRowSelect}"
+                                    oncomplete="ser.hide();"/>
+                            <p:column>
+                                <h:outputText value="#{sd.id}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{sd.rno}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{sd.cname}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{sd.lname}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{sd.phone}"/>
+                            </p:column>
+                        </font>
+                    </p:dataTable>
+                </p:dialog>
+            </h:form>
+             
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

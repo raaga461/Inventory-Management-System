@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cd32c6eb-841c-4282-8268-2cd61e4e178f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="s3" uuid="48ae80a6-caf4-4ada-a228-2f03f8606fcd">
+		<parameter name="p1" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     employee.`empid` AS employee_empid,
+     employee.`ename` AS employee_ename,
+     employee.`bdate` AS employee_bdate,
+     employee.`mobile` AS employee_mobile,
+     employee.`mail` AS employee_mail,
+     employee.`state` AS employee_state,
+     employee.`district` AS employee_district,
+     employee.`city` AS employee_city,
+     employee.`pincode` AS employee_pincode,
+     employee.`gender` AS employee_gender,
+     employee.`religion` AS employee_religion,
+     employee.`mstatus` AS employee_mstatus,
+     employee.`qualification` AS employee_qualification,
+     employee.`department` AS employee_department,
+     employee.`designation` AS employee_designation,
+     employee.`salary` AS employee_salary
+FROM
+     `employee` employee  where employee.empid=$P{p1}]]>
+		</queryString>
+		<field name="employee_empid" class="java.lang.Integer"/>
+		<field name="employee_ename" class="java.lang.String"/>
+		<field name="employee_bdate" class="java.lang.String"/>
+		<field name="employee_mobile" class="java.lang.String"/>
+		<field name="employee_mail" class="java.lang.String"/>
+		<field name="employee_state" class="java.lang.String"/>
+		<field name="employee_district" class="java.lang.String"/>
+		<field name="employee_city" class="java.lang.String"/>
+		<field name="employee_pincode" class="java.lang.String"/>
+		<field name="employee_gender" class="java.lang.String"/>
+		<field name="employee_religion" class="java.lang.String"/>
+		<field name="employee_mstatus" class="java.lang.String"/>
+		<field name="employee_qualification" class="java.lang.String"/>
+		<field name="employee_department" class="java.lang.String"/>
+		<field name="employee_designation" class="java.lang.String"/>
+		<field name="employee_salary" class="java.lang.Integer"/>
+	</subDataset>
+	<parameter name="idp" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     employee.`empid` AS employee_empid,
+     employee.`ename` AS employee_ename,
+     employee.`bdate` AS employee_bdate,
+     employee.`mobile` AS employee_mobile,
+     employee.`mail` AS employee_mail,
+     employee.`state` AS employee_state,
+     employee.`district` AS employee_district,
+     employee.`city` AS employee_city,
+     employee.`pincode` AS employee_pincode,
+     employee.`gender` AS employee_gender,
+     employee.`religion` AS employee_religion,
+     employee.`mstatus` AS employee_mstatus,
+     employee.`qualification` AS employee_qualification,
+     employee.`department` AS employee_department,
+     employee.`designation` AS employee_designation,
+     employee.`salary` AS employee_salary
+FROM
+     `employee` employee]]>
+	</queryString>
+	<field name="employee_empid" class="java.lang.Integer"/>
+	<field name="employee_ename" class="java.lang.String"/>
+	<field name="employee_bdate" class="java.lang.String"/>
+	<field name="employee_mobile" class="java.lang.String"/>
+	<field name="employee_mail" class="java.lang.String"/>
+	<field name="employee_state" class="java.lang.String"/>
+	<field name="employee_district" class="java.lang.String"/>
+	<field name="employee_city" class="java.lang.String"/>
+	<field name="employee_pincode" class="java.lang.String"/>
+	<field name="employee_gender" class="java.lang.String"/>
+	<field name="employee_religion" class="java.lang.String"/>
+	<field name="employee_mstatus" class="java.lang.String"/>
+	<field name="employee_qualification" class="java.lang.String"/>
+	<field name="employee_department" class="java.lang.String"/>
+	<field name="employee_designation" class="java.lang.String"/>
+	<field name="employee_salary" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="96c3bb83-7eb4-44ae-bbdd-dda65d5a6e2a" x="116" y="16" width="224" height="51"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Details]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="f07ee40d-aa53-47b8-b10d-7176839cbe00" x="424" y="4" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="h.mm.ss a">
+				<reportElement uuid="ac3fd0f7-6c14-407b-966d-1a458edb4af2" x="424" y="47" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="94">
+			<componentElement>
+				<reportElement uuid="e6f83f01-1b26-47ed-9cc9-fb05ad743256" key="table" style="table" x="127" y="23" width="360" height="53"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="s3" uuid="32049da9-2e27-4209-ae0f-1219bd880e75">
+						<datasetParameter name="p1">
+							<datasetParameterExpression><![CDATA[$P{idp}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="1fe28b8e-95ea-4c49-9478-f9a4320c5acb">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="9b992614-256c-4cd5-994b-6cf92da09c48" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_empid]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="103b8267-52ce-4642-9de9-95b3d70966de" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_empid}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3955cf48-2c44-4949-ac7a-eb6da18d20f7">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="14f528f3-b6f9-4523-acea-8162ac142a44" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_ename]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="3d9531f2-9086-4e62-8a8d-5e6c45bf5c20" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_ename}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="db1ce7f2-2093-4c68-841a-aeea2c270039">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="69939aa8-fae7-48ba-be6e-336ade47a9e2" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_bdate]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="d1605e26-d851-4a1d-b571-51e1a4744ea0" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_bdate}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="33a44d0a-7b6d-4857-885d-74de992e5ad2">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="e086b6cf-2166-4552-ac93-922553275c65" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_mobile]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="3f629cf4-ea81-4f5e-b51a-56682711522e" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_mobile}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="2168ee8e-bbf1-4a77-8f1d-e603c8716c58">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="fb2ea655-5c67-4065-be30-a3ec3bb1f02d" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_mail]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="830e47c3-b999-4c76-80f8-eab4be3aa7e1" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_mail}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="cf161c6d-b029-4724-bcdb-6fe959ab6b20">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="224f0718-6859-46f2-bb5b-d46683bd5481" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_state]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="8822bee1-36c2-4d40-9689-4c27df988330" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_state}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="0492a6fc-60df-4899-9061-761da501b659">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="8db5f887-12c7-4103-b73e-cc1029e48da3" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_district]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="d4890829-491e-4e8a-8dd8-ad03326bba47" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_district}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="9dbec4e7-0031-4cb0-9e45-5bdbdc18ea17">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="1c9f31ba-f13e-4ac8-9e7b-19d7acc911a3" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_city]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="bbb5fe54-19f6-4fec-a533-780b008bc31e" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_city}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="ba55f868-4a01-412d-a275-2c99ddb38bae">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="906fbeef-791f-4e51-a40a-37fa4fbf8fcc" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_pincode]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="8d810aee-da09-403d-aace-0dc64c331979" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_pincode}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="bc49daf2-d26c-4e61-ae9a-2a07a4e58505">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="2a6b9637-a1d7-4e13-9b36-411d274d311a" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_gender]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="6a8ebdcb-ef51-4d0b-afb5-8abb06fd7a66" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_gender}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="74c6bc48-4de6-4175-84cf-2608a3cd0b37">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="0752eecd-0eab-4135-92d9-a6bd96a99e73" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_religion]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="9be7e89d-77df-4696-90ab-9833c2a59a17" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_religion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="33bcb1ad-3ac4-47c6-996f-ff01f86ec7d3">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="64adc1b0-1388-4001-a208-61fd30c13999" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_mstatus]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="66d57dc2-f2da-48ee-811d-a3bc21805cdc" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_mstatus}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="844f4fa2-f23b-4af4-ac7c-b65d147f953c">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="cb793797-f803-4caa-9e39-79538a587e3f" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_qualification]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="463eec76-b409-492a-b9de-a11675000571" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_qualification}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="6271f81b-fa22-4be9-aa86-f8012815a9b3">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="40b6bd67-5f65-4bc3-932a-8509e258af06" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_department]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="a31e59f2-28e3-4129-a2d6-0754737004bd" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_department}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="eb47b4d8-8b70-4218-a0a4-d3ba8d0c5320">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="afc0f168-4aef-49aa-a85c-6398d72ff30c" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_designation]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="04b40e95-e6c9-4cc6-ba2e-ecf278a4bcdd" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_designation}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="fde9bcc9-4699-4b85-8e49-dcf26c88219e">
+						<jr:tableHeader style="table_TH" height="30"/>
+						<jr:tableFooter style="table_TH" height="30"/>
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement uuid="d4a1c86a-c25c-4fac-bf0b-d3cee371a120" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[employee_salary]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement uuid="e1e3129e-78be-4e22-95c6-b1084359a539" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{employee_salary}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="345">
+			<textField>
+				<reportElement uuid="3bc0a500-9a4a-458b-9842-4762ce31731f" x="298" y="169" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{employee_salary}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="81" splitType="Stretch"/>
+	</summary>
+</jasperReport>

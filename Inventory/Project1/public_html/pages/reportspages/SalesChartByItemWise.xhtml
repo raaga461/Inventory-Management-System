@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+       <!--<link type="text/css" rel="stylesheet" href="#{request.contextPath}/bootstrap/theme.css"/>-->
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+        <ui:include src="/pages/commons/header.xhtml"/>
+         <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">Sales Itemwise Analysis</h1>  
+            <h:form id="form1">
+                <p:growl id="msgs" autoUpdate="true" severity="info"/>
+                <table cellspacing="10px">
+                    <tr>
+                        <td align="right">
+                            <p:outputLabel value="From_Date" style="font-weight:bold;"/>
+                        </td>
+                        <td>
+                            <p:calendar id="cal1" value="#{itemchart.sicb.date2}" pattern="dd-MMM-yy" navigator="true"
+                                        immediate="true" style="font-size:90%" >
+                                <p:ajax event="dateSelect" listener="#{itemchart.dateSelect}" update="cal1"/>
+                            </p:calendar>
+                        </td>
+                        <td align="right">
+                            <p:outputLabel value="Sales Type" style="font-weight:bold; "/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu value="#{itemchart.sicb.stype}" style="font-size:90%">
+                                <f:selectItems value="#{itemchart.SList}"  style="font-size:90%"/>
+                                <p:ajax update=":form2:dataTable" listener="#{itemchart.typeChanged}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td align="right">
+                            <p:outputLabel value="Route" style="font-weight:bold;"/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu id="route" value="#{itemchart.sicb.route}" filter="true"
+                                             filterMatchMode="contains" style="font-size:90%">
+                                <f:selectItems value="#{itemchart.RList}"  style="font-size:90%"/>
+                                <p:ajax update=":form2:dataTable" listener="#{itemchart.routeChanged}"/>
+                            </p:selectOneMenu>
+                        </td>
+                    </tr>
+                     
+                    <tr>
+                        <td align="right">
+                            <p:outputLabel value="To_Date" style="font-weight:bold;"/>
+                        </td>
+                        <td>
+                            <p:calendar id="cal" value="#{itemchart.sicb.date1}" pattern="dd-MMM-yy" navigator="true"
+                                        immediate="true" style="font-size:90%">
+                                <p:ajax event="dateSelect" listener="#{itemchart.todateSelect}" update="cal"/>
+                            </p:calendar>
+                        </td>
+                        <td align="right">
+                            <p:outputLabel value="Representative" style="font-weight:bold;"/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu value="#{itemchart.sicb.representative}" style="width:124px;font-size:90%">
+                                <f:selectItems value="#{itemchart.repList}"  style="font-size:90%"/>
+                                <p:ajax update="route,:form2:dataTable" listener="#{itemchart.repChanged}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td align="right">
+                            <p:outputLabel value="ITEM GROUP" style="font-weight:bold;"/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu id="igrop" value="#{itemchart.sicb.igroup}" style="font-size:90%">
+                                <f:selectItems value="#{itemchart.itemList}"  style="font-size:90%"/>
+                                <p:ajax update=":form2:dataTable" listener="#{itemchart.itemChanged}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td align="center" valign="middle">
+                            <p:commandButton value="Dispaly" action="#{itemchart.GetData}" update=":form2:dataTable" style="font-size:90%" />
+                             
+                            <p:commandButton value="Print" action="#{itemchart.print}" style="font-size:90%"/>
+                             
+                            <p:commandButton value="Refresh" update=":form1,:form2" action="#{itemchart.refresh}" style="font-size:90%"/>
+                             
+                            <p:commandButton value="Graph" update="panelgrid,pieChart" action="#{itemchart.DataCharta}" onclick="pi.show()"  style="font-size:90%" process="@this,panelgrid"/>
+                        </td>
+                    </tr>
+                </table>
+                <h:panelGrid id="panelgrid" columns="4" rendered="#{itemchart.b1}">
+                    <p:pieChart id="pieChart" value="#{itemchart.pieModel}" legendPosition="e" widgetVar="pi"
+                                title="Sales Item Wise Analysis" style="width:550px;height:500px;font-size:90%"
+                                rendered="#{itemchart.b1}" showDataLabels="true" >
+                        <p:ajax event="itemSelect" listener="#{itemchart.itemSelect}" update="panelgrid,pieChart1"/>
+                    </p:pieChart>
+                    <p:pieChart id="pieChart1" value="#{itemchart.pieModel1}" legendPosition="e" widgetVar="pi1"
+                                title="Sales Item Wise Analysis" style="width:550px;height:500px;font-size:90%"
+                                rendered="#{itemchart.b2}" showDataLabels="true">
+                        <p:ajax event="itemSelect" listener="#{itemchart.subitemSelect}" update="panelgrid,pieChart2"/>
+                    </p:pieChart>
+                    <p:pieChart id="pieChart2" value="#{itemchart.pieModel2}" legendPosition="e" widgetVar="pi2"
+                                title="Sales Item Wise Analysis" style="width:550px;height:500px;font-size:90%"
+                                rendered="#{itemchart.b3}" showDataLabels="true">
+                        <p:ajax event="itemSelect" listener="#{itemchart.msubitemSelect}" update="dai,dataTable1"
+                                oncomplete="di1.show()"/>
+                    </p:pieChart>
+                </h:panelGrid>
+                <p:dialog id="dai" widgetVar="di1" width="1000px" modal="true">
+                <p:outputLabel value="ItemName :"/>
+                <p:outputLabel value="#{itemchart.itemname}"/>
+                <br/>
+                     <br/>
+                          <br/>
+                    <p:dataTable id="dataTable1" var="dat" value="#{itemchart.tdata1}" resizableColumns="false"
+                                 scrollable="true" scrollHeight="500" style="font-size:90%">
+                                 
+                        <p:column headerText="SNO" footerText="  " style="width:49px">
+                            <h:outputText value="#{dat.sno}"/>
+                        </p:column>
+                        <p:column headerText="PARTNAME" style="width:349px;font-size:90%">
+                            <h:outputText value="#{dat.pname}"/>
+                        </p:column>
+                        <p:column headerText="CITY" style="width:219px">
+                            <h:outputText value="#{dat.city}"/>
+                        </p:column>
+                        <p:column headerText="PRODUCTNAME" style="width:287px;font-size:90%">
+                            <h:outputText value="#{dat.product}"/>
+                        </p:column>
+                        <p:column headerText="QUANTITY" style="width:97px;font-size:90%">
+                            <h:outputText value="#{dat.quantity}"/>
+                        </p:column>
+                        <p:column headerText="NETVALUE" style="width:99px;font-size:90%">
+                            <h:outputText value="#{dat.net}"/>
+                        </p:column>
+                        <p:column headerText="REPRESENT" style="width:115px;font-size:90%">
+                            <h:outputText value="#{dat.rep}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+            </h:form>
+             
+            <h:form id="form2">
+                <div></div>
+                <p:dataTable id="dataTable" var="dat" value="#{itemchart.tdata}" resizableColumns="false"
+                             scrollable="true" scrollHeight="500" style="font-size:90%">
+                    <p:column headerText="INV NO" footerText="  " style="width:84px;font-size:90%">
+                        <h:outputText value="#{dat.invno}"/>
+                    </p:column>
+                    <p:column headerText="INV DATE" style="width:113px;font-size:90%" >
+                        <h:outputText value="#{dat.invdate}"/>
+                    </p:column>
+                    <p:column headerText="PARTY NAME" style="width:369px;font-size:90%">
+                        <h:outputText value="#{dat.pname}"/>
+                    </p:column>
+                    <p:column headerText="CITY" style="width:199px;font-size:90%">
+                        <h:outputText value="#{dat.city}"/>
+                    </p:column>
+                    <p:column headerText="REPRESENT" style="width:138px;font-size:90%">
+                        <h:outputText value="#{dat.rep}"/>
+                    </p:column>
+                    <p:column headerText="ITEM CATEGORY" style="width:220px;font-size:90%">
+                        <h:outputText value="#{dat.icat}"/>
+                    </p:column>
+                    <p:column headerText="INV AMOUNT" style="width:120px;font-size:90%">
+                        <h:outputText value="#{dat.invamt}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

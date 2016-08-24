@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head> <title>Sales item</title> <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </style></h:head>
+         <ui:include src="/pages/commons/header.xhtml"/>
+         <br></br>
+        <h:body>
+            <h:form id="form">
+                <p:growl id="message" autoUpdate="false"/>
+                <center>
+                    <h1>Sales Item Master</h1>
+                </center>
+                <br></br>
+                <center>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="ItemCode"/>
+                        <p:inputText value="#{saleitem.s.itemcode}" readonly="true"></p:inputText>
+                        <p:outputLabel value="ItemName"/>
+                        <p:inputText value="#{saleitem.s.itemname}"></p:inputText>
+                        <p:outputLabel value="ShortName"/>
+                        <p:inputText value="#{saleitem.s.shortname}"></p:inputText>
+                        <h:outputLabel value="Item Group:"></h:outputLabel>
+                        <p:selectOneMenu value="#{saleitem.s.itemgroup}" editable="true">
+                            <f:selectItems value="#{saleitem.catarray}"/>
+                            <p:ajax event="blur" listener="#{saleitem.subcatset}" update="sub,ty"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="ItemCategory"/>
+                        <p:selectOneMenu value="#{saleitem.s.itemcategory}" id="sub" editable="true">
+                            <f:selectItems value="#{saleitem.subcatarray}"/>
+                            <p:ajax event="blur" update="ty" listener="#{saleitem.last}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Sub Category"/>
+                        <p:selectOneMenu value="#{saleitem.s.subcategory}" id="ty" editable="true">
+                            <f:selectItems value="#{saleitem.lastarray}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Item Rate"/>
+                        <p:inputText value="#{saleitem.s.itemrate}"></p:inputText>
+                        <p:outputLabel value="Tax"/>
+                        <p:inputText value="#{saleitem.s.tax}"></p:inputText>
+                        <p:outputLabel value="Discount"/>
+                        <p:inputText value="#{saleitem.s.discount}"></p:inputText>
+                        <p:outputLabel value="Max.Discount"/>
+                        <p:inputText value="#{saleitem.s.maxdiscount}"></p:inputText>
+                    </h:panelGrid>
+                    <p:commandButton actionListener="#{saleitem.onAddSelect}" update="message" value="save" disabled="#{saleitem.status=='false'}">
+                        <f:param name="VALIDATE" value="true"/>
+                    </p:commandButton>
+                    <p:commandButton value="Search" actionListener="#{saleitem.search}" onclick="ser.show();"></p:commandButton>
+                    <p:commandButton value="Reset" update=":form" actionListener="#{saleitem.refresh}"/>
+                    <p:commandButton value="update" update="message" actionListener="#{saleitem.onUpdateSelect}" disabled="#{saleitem.status}"/>
+                </center>
+                <p:dialog id="dialog11" header=" Search" widgetVar="ser" resizable="false" showEffect="fade"
+                          hideEffect="explode" style="width: 800px">
+                    <p:dataTable var="sd" value="#{saleitem.al}" paginator="true" rows="15" style="width:700px"
+                                 selectionMode="single" rowKey="#{sd.itemcode}">
+                        <font color="#050505">
+                            List of Users
+                            <p:ajax event="rowSelect" update=":form" listener="#{saleitem.onRowSelect}"
+                                    oncomplete="ser.hide();"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Itemcode"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.itemcode}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Item Name"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.itemname}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Itemcategory"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.itemcategory}"/>
+                            </p:column>
+                        </font>
+                    </p:dataTable>
+                </p:dialog>
+                  <ui:include src="/pages/commons/footer.xhtml"/>
+            </h:form>
+            
+        </h:body>
+    </html>
+</f:view>

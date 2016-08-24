@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head><title>Purchase Item</title>
+            <style type="text/css">
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .ui-layout-unit-content {
+                    background-image: url('images/add.jpg');
+                    background-size: 100%
+                }
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+            </style>
+        </h:head>
+        <h:body>
+            <ui:include src="/pages/commons/header.xhtml"/>
+             <br></br>
+            <p:growl id="msg" showDetail="true"/>
+             
+            <center>
+                <h1>
+                    Purchase Item Master
+                </h1>
+            </center>
+             <br></br>
+            <h:form id="form">
+                <center>
+                    <table>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Item Code"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText id="h" value="#{itempurchase.s1.code}" required="true"
+                                             requiredMessage="please enter the code" readonly="true">
+                                    <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Item Name"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{itempurchase.s1.name}" required="true"
+                                             requiredMessage="Please enter item name">
+                                    <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Item Category"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:selectOneMenu value="#{itempurchase.s1.category}" editable="true" required="true"
+                                                 requiredMessage="Select Category">
+                                    <f:selectItems value="#{itempurchase.catarray}"/>
+                                    <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Item Rate:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{itempurchase.s1.rate}" required="true"
+                                             requiredMessage="Enter item rate">
+                                    <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Tax"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{itempurchase.s1.tax}" required="true" requiredMessage="enter tax">
+                                    <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Discount"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{itempurchase.s1.discount}" required="true"
+                                             requiredMessage="enter discount">
+                                    <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Max Disc"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{itempurchase.s1.maxdisc}" required="true"
+                                             requiredMessage="enter maximum discount">
+                                    <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                    </table>
+                    <br></br>
+                    <p:commandButton value="New" actionListener="#{itempurchase.refresh}" update=":form"
+                                     process="@this">
+                        <p:resetInput target=":form"/>
+                    </p:commandButton>
+                    &nbsp; &nbsp;
+                    <p:commandButton value="save" update=":msg" disabled="#{itempurchase.status==false}"
+                                     actionListener="#{itempurchase.onAddSelect}">
+                        <f:param name="VALIDATE" value="true"/>
+                    </p:commandButton>
+                    &nbsp; &nbsp;
+                    <p:commandButton value="Edit" actionListener="#{itempurchase.onSearchSelect}" onclick="ser.show();"></p:commandButton>
+                    &nbsp; &nbsp;
+                    <p:commandButton value="Update" update=":form,:msg" disabled="#{itempurchase.status}"
+                                     actionListener="#{itempurchase.update}"></p:commandButton>
+                </center>
+                <p:dialog id="dialog11" header=" Search" widgetVar="ser" resizable="false" showEffect="fade"
+                          hideEffect="explode" style="width: 800px">
+                    <p:dataTable id="dt" var="sd" value="#{itempurchase.al}" selectionMode="single" rowKey="#{sd.code}">
+                        <f:facet name="salesitem">List of Items</f:facet>
+                        <p:ajax event="rowSelect" listener="#{itempurchase.onRowSelect}" update=":form"
+                                oncomplete="ser.hide()"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Code"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.code}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ItemName"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Category"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.category}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ItemRate"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.rate}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tax"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.tax}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Discount"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.discount}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Max Discount"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.maxdisc}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+            </h:form>
+             
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

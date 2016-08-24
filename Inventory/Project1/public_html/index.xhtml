@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title>
+                #{invresou[&apos;welcome.title.company&apos;]}
+            </title>
+        </h:head>
+        <h:body>
+            <p:growl id="msgs" sticky="false"/>
+             
+            <h:form id="_log" styleClass="deee">
+                <p:panelGrid columns="2">
+                    <f:facet name="header">LOGIN FORM</f:facet>
+                    <h:outputText value="Enter Company Name"></h:outputText>
+                    <p:inputText id="username" required="true" requiredMessage="Please Enter Companyname!" message="fc"
+                                 value="#{userController.userid}">
+                        <f:validateLength minimum="1"/>
+                    </p:inputText>
+                    <h:outputText value="Enter Password"></h:outputText>
+                    <p:password id="password" required="true" requiredMessage="Please Enter password!"
+                                value="#{userController.password}">
+                        <f:validateLength minimum="1"/>
+                    </p:password>
+                    <f:facet name="footer">
+                        <p:commandButton value="Login" update=":msgs,:_log" type="submit" icon="loginBtn"
+                                         action="#{userController.login}"
+                                         style="margin:0; float: right; font-size:12px"></p:commandButton>
+                        <!--p:commandButton value="Reset" update="msgs" type="reset" icon="ui-icon-refresh"  style="padding-left:0; float: left"></p:commandButton-->
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+             
+            <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
+                <f:facet name="start">
+                    <p:graphicImage value="/images/loading.gif"/>
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value=""/>
+                </f:facet>
+            </p:ajaxStatus>
+        </h:body>
+    </html>
+</f:view>

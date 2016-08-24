@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+          <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+          <h:body>
+           <ui:include src="/pages/commons/header.xhtml"/>
+         <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">Purchase Item Data</h1>   
+                <hr/>
+            <h:form id="form1">
+            
+                <table>
+                    <tr>
+                        <td width="70%">
+                            <h:panelGrid columns="4"  cellspacing="8" >
+                              
+                                <p:outputLabel value="Date :" style="font-weight:bold;"/>
+                              <h:outputText value="#{purchaseitem.date}" />
+                                 <h:outputLabel value="Item Category :" style="font-weight:bold;"/>
+                                <p:selectOneMenu value="#{purchaseitem.pib.icategoty}">
+                                    <f:selectItems value="#{purchaseitem.IList}"/>
+                                    <p:ajax update=":form2:dataTable" listener="#{purchaseitem.typeChanged}" />
+                                </p:selectOneMenu>
+                              
+                            </h:panelGrid>
+                        </td>
+                        <td align="center" valign="middle">
+                            <p:commandButton value="Dispaly" action="#{purchaseitem.tableData}" update=":form2:dataTable"/>
+                            <p:commandButton value="Refresh" action="#{purchaseitem.refresh}" update=":form1,:form2"/>
+                            <p:commandButton value="Print" action="#{purchaseitem.print}"/>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+             
+            <h:form id="form2">
+            <table>
+            <tr>
+            
+            <td >
+            <p:dataTable id="dataTable" var="dat" value="#{purchaseitem.tdata}" paginator="true" rows="10"
+                             resizableColumns="true" liveResize="true">
+                    <f:facet name="header">Purchase Item Data</f:facet>
+                    <p:column headerText="ITEM CODE">
+                        <h:outputText value="#{dat.icode}"/>
+                    </p:column>
+                    <p:column headerText="ITEM NAME">
+                        <h:outputText value="#{dat.iname}"/>
+                    </p:column>
+                    <p:column headerText="RATE">
+                        <h:outputText value="#{dat.rate}"/>
+                    </p:column>
+                    <p:column headerText="CATEGORY">
+                        <h:outputText value="#{dat.icat}"/>
+                    </p:column>
+                    <p:column headerText="SALES PRICE">
+                        <h:outputText value="#{dat.iprice}"/>
+                    </p:column>
+                    <p:column headerText="MRP">
+                        <h:outputText value="#{dat.mrp}"/>
+                    </p:column>
+                  <p:column headerText="TAX">
+                        <h:outputText value="#{dat.tax}"/>
+                    </p:column>
+                  <p:column headerText="DISC">
+                        <h:outputText value="#{dat.disc}"/>
+                    </p:column>
+                 <p:column headerText="MAX.DISC">
+                        <h:outputText value="#{dat.mxdisc}"/>
+                    </p:column>
+                  </p:dataTable>
+                </td>    
+                </tr>
+                </table>
+            </h:form>
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

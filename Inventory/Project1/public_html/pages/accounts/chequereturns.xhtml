@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <style type="text/css">
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .ui-layout-unit-content {
+                    background-image: url('images/add.jpg');
+                    background-size: 100%
+                }
+            </style>
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+            <ui:include src="/pages/commons/header.xhtml"/>
+             
+            <font color="black">
+                <center>
+                    <h1>Cheque Returns</h1>
+                </center>
+            </font>
+             
+            <p:growl id="msg"/>
+             
+            <h:form id="form">
+                <center>
+                    <table>
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Sno:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.sno}" readonly="true"></p:inputText>
+                            </td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.chno}" readonly="true"></p:inputText>
+                            </td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.cid}" readonly="true"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Customer Name:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.customername}" onclick="cust.show();"></p:inputText>
+                            </td>
+                          
+                        </tr>
+                         
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.rid}" readonly="true"></p:inputText>
+                            </td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.rep}" readonly="true"></p:inputText>
+                            </td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.city}" readonly="true"></p:inputText>                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Cheque/DD:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:selectOneMenu value="#{chequereturns.c.type}">
+                                    <f:selectItem itemLabel="Cheque" itemValue="Cheque"/>
+                                    <f:selectItem itemLabel="D.D" itemValue="D.D"/>
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Cheque/DD No:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.chqno}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Cheque/DD Amount:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.amount}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Cheque/DD Date:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:calendar showOn="button" navigator="true" value="#{chequereturns.chequedate}"
+                                            pattern="yyyy-MM-dd"></p:calendar>
+                            </td>
+                            <td>
+                                <h:outputLabel value="Cheque/DD Return Date:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:calendar showOn="button" navigator="true" value="#{chequereturns.cheqereturndate}"
+                                            pattern="yyyy-MM-dd"></p:calendar>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Bank Charge:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.bankcharge}">
+                                    <p:ajax event="blur" listener="#{chequereturns.totalamt}" update="totlamt"></p:ajax>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Total:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{chequereturns.c.totalamt}" id="totlamt"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Notes:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <h:inputTextarea value="#{chequereturns.c.notes}"></h:inputTextarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td>
+                                <p:commandButton value="Save" actionListener="#{chequereturns.save}" update=":msg"></p:commandButton>
+                            </td>
+                            <td>
+                                <p:commandButton value="Edit" onclick="ser.show()"
+                                                 actionListener="#{chequereturns.search}"></p:commandButton>
+                            </td>
+                            <td>
+                                <p:commandButton value="Update" actionListener="#{chequereturns.update}" update=":msg"
+                                                 disabled="#{chequereturns.status}"></p:commandButton>
+                            </td>
+                            <td>
+                                <p:commandButton value="Reset" actionListener="#{chequereturns.refresh}" update=":form"></p:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                    <p:dialog id="dialog11" header=" Search" widgetVar="ser" resizable="false" showEffect="fade"
+                              hideEffect="explode" style="width: 800px">
+                        <p:dataTable id="dt" var="sd" value="#{chequereturns.al}" selection="#{chequereturns.c1}"
+                                     selectionMode="single" paginator="true" rows="10" style="width:700px"
+                                     rowKey="#{sd.sno}">
+                            <f:facet name="header">List of Users</f:facet>
+                            <p:ajax event="rowSelect" update=":form" listener="#{chequereturns.onRowSelect}"
+                                    oncomplete="ser.hide()"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Vno"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.sno}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Customer"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.customername}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cheque/DD no"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.chqno}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Amount"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.totalamt}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:dialog id="custid" widgetVar="cust" resizable="false" showEffect="fade" hideEffect="explode"
+                              style="width: 800px">
+                        <p:dataTable id="datatab" var="rd" value="#{chequereturns.voucherdeatils}"
+                                     selectionMode="single" paginator="true" rows="5" style="width:700px"
+                                     rowKey="#{rd.voucherno}">
+                            <p:ajax event="rowSelect" update=":form" listener="#{chequereturns.onCustSelect}"
+                                    oncomplete="cust.hide()"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="V.No"/>
+                                </f:facet>
+                                <h:outputText value="#{rd.voucherno}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Customer Name"/>
+                                </f:facet>
+                                <h:outputText value="#{rd.customername}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Cheque/DD no"/>
+                                </f:facet>
+                                <h:outputText value="#{rd.cheque_ddno}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Amount"/>
+                                </f:facet>
+                                <h:outputText value="#{rd.amount}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ChequeDate"/>
+                                </f:facet>
+                                <h:outputText value="#{rd.voucherdate}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                </center>
+            </h:form>
+             
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>
+                   

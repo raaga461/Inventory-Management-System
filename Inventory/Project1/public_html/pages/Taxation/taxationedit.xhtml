@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title>EDIT Taxtion</title>
+            <style type="text/css">
+                ui-widget .img-button-save {
+                    background-image: url('images/save1.jpg')!important;
+                    background-size: 100px 70px;
+                }
+
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .ui-layout-unit-content {
+                    background-image: url('images/cloud.jpg');
+                    background-size: 100%;
+                }
+
+                .wr {
+                    alignment-adjust: middle;
+                }
+            </style>
+        </h:head>
+        <h:body>
+            <ui:include src="/pages/commons/header.xhtml"/>
+            <br></br>
+            <center>
+                <h1>
+                    Edit Taxation Master
+                </h1>
+            </center>
+
+            <p:growl id="msg" showDetail="true"/>
+
+            <h:form id="form">
+                <center>
+                    <br></br>
+                    <font size="4">
+                        <table>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Enter Tax:" rendered="false"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{taxedit.c1.tax}" required="true"
+                                                 requiredMessage="Enter Tax" rendered="false">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Tax No:"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{taxedit.c1.taxno}"
+                                                 required="true" requiredMessage="Enter Tax Number" disabled="true">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputText>
+                                    <p:commandButton icon="ui-search" oncomplete="ser.show()" actionListener="#{taxedit.onSearchSelect}" update=":form"/>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="include C-Form tax?"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu value="#{taxedit.c1.CFormtax}" required="true"
+                                                     requiredMessage="Select CForm Tax">
+                                        <f:selectItem itemLabel="Yes" itemValue="Yes"/>
+                                        <f:selectItem itemLabel="No" itemValue="No"/>
+                                        <p:ajax event="change" update="cflabe,cfper"/>
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Region:"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu value="#{taxedit.c1.region}" required="true"
+                                                     requiredMessage="Select Region">
+                                       
+                                        <f:selectItem itemLabel="With in state" itemValue="With in state"/>
+                                        <f:selectItem itemLabel="Out of State" itemValue="Out of State"/>
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:selectOneMenu>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="C-From Tax %:" id="cflabe"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{taxedit.c1.cftaxper}" id="cfper"
+                                                 disabled="#{taxedit.c1.CFormtax=='No'}" required="true"
+                                                 requiredMessage=" Enter Tax %">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputText>
+                                    EX 12.5
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Tax Name:"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{taxedit.c1.taxname}" required="true"
+                                                 requiredMessage="Enter tax Name">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputText>
+                                    Ex: CST 2%
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Tax % per item:"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{taxedit.c1.taxperitem}" required="true">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputText>
+                                    Ex: 2
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Notes:"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputTextarea id="ad" value="#{taxedit.c1.notes}" rows="3" cols="25"
+                                                     requiredMessage="Enter notes"></p:inputTextarea>
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td>
+                                    <p:commandButton value="Refresh" actionListener="#{taxedit.refresh}"
+                                                     update=":form" process="@this">
+                                        <p:resetInput target=":form"/>
+                                    </p:commandButton>
+                                </td>
+                                <td>
+                                    <p:commandButton value="Update" actionListener="#{taxedit.onUpdateSelect}"
+                                                     update=":msg,:form" disabled="#{taxedit.status}"></p:commandButton>
+                                </td>
+                                <td>
+                                    <p:commandButton value="Delete" onclick="dele.show()" disabled="#{taxedit.status}"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <p:dialog header="Delete Record" widgetVar="dele" id="del" >
+                            <br/>
+                            <center>Confirm To Delete ..?</center>
+                            <br/>
+                            <hr/>
+                            <center><p:commandButton value="Yes" actionListener="#{taxedit.deleteTaxDetails}"
+                                                     update=":msg,:form"/><p:commandButton value="No" onclick="dele.hide();"/> </center>
+                        </p:dialog>
+                        <p:dialog id="dialog11" header="Search" widgetVar="ser" resizable="false"
+                                  showEffect="fade" hideEffect="explode">
+                            <p:dataTable var="sd" value="#{taxedit.al}" paginator="true" rows="5"
+                                         selectionMode="single" rowKey="#{sd.taxno}" paginatorPosition="top">
+
+                                <f:facet name="header">Tax Details </f:facet>
+                                <p:ajax event="rowSelect" update=":form,:msg,:form:cflabe" listener="#{taxedit.onRowSelect}"
+                                        oncomplete="ser.hide();"/>
+
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Tax Number"/>
+                                    </f:facet>
+                                    <h:outputText value="#{sd.taxno}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Region"/>
+                                    </f:facet>
+                                    <h:outputText value="#{sd.region}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Tax Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{sd.taxname}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Tax"/>
+                                    </f:facet>
+                                    <h:outputText value="#{sd.taxperitem}"/>
+                                </p:column>
+                                <p:column headerText="CTax"><h:outputText value="#{sd.CFormtax}"/></p:column>
+                                <p:column headerText="CF Tax Per"><h:outputText value="#{sd.cftaxper}"/></p:column>
+                                <p:column headerText="Notes"><h:outputText value="#{sd.notes}"/></p:column>
+                                <f:facet name="footer">***</f:facet>
+
+
+                            </p:dataTable>
+                        </p:dialog>
+                    </font>
+                </center>
+            </h:form>
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>
+

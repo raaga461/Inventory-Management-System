@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+         <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+            <h:body>
+            <ui:include src="/pages/commons/header.xhtml"/>
+                         <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">Sales Reports By Tour Wise</h1> 
+        <h:form id="form1">
+        
+              <p:growl id="msgs" autoUpdate="true"/>
+                <table cellspacing="10px">
+                    <tr>
+                        <td align="right">
+                            <p:outputLabel value="From_Date" style="font-weight:bold;"/>
+                        </td>
+                        <td>
+                            <p:calendar id="cal1" value="#{invoice.sib.date2}" pattern="dd-MMM-yy" navigator="true" immediate="true">
+                                <p:ajax event="dateSelect" listener="#{invoice.dateSelect}" update="cal1,:form2:dataTable"/>
+                            </p:calendar>
+                        </td>
+                        <td align="right">
+                            <p:outputLabel value="Sales Type" style="font-weight:bold; "/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu value="#{invoice.sib.salesType}">
+                                <f:selectItems value="#{invoice.taxList}"/>
+                                <p:ajax update=":form2:dataTable" listener="#{invoice.typeChanged}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td align="right">
+                            <p:outputLabel value="Route" style="font-weight:bold;"/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu value="#{invoice.sib.route}">
+                                <f:selectItems value="#{invoice.route}"/>
+                                <p:ajax update="place,:form2:dataTable" listener="#{invoice.routeChanged}"/>
+                            </p:selectOneMenu>
+                        </td>
+                    </tr>
+                     <tr>
+                          <td align="right">
+                                
+                                    <p:outputLabel value="To_Date" style="font-weight:bold;"/>
+                                       </td>
+                                <td>
+                                <p:calendar id="cal" value="#{invoice.sib.date1}" pattern="dd-MMM-yy"  navigator="true" immediate="true">
+                                 <p:ajax event="dateSelect" listener="#{invoice.todateSelect}" update="cal,:form2:dataTable" />  
+                                </p:calendar>
+                                </td>
+                                
+                                <td align="right">
+                                
+                                  <p:outputLabel value="Representative" style="font-weight:bold;"/>
+                                      </td>
+                                 <td>
+                                <p:selectOneMenu value="#{invoice.sib.reType}"  style="width:124px">
+                                    <f:selectItems value="#{invoice.representativeList}"/>
+                                     <p:ajax update="place,:form2:dataTable"    listener="#{invoice.repChanged}" />  
+                                </p:selectOneMenu>
+                                </td>
+                                <td align="right">
+                                 <p:outputLabel value="Place" style="font-weight:bold;"/> 
+                                     </td>
+                                 <td>
+                                <p:selectOneMenu id="place" value="#{invoice.sib.place}" filter="true" filterMatchMode="contains">
+                             
+                                    <f:selectItems value="#{invoice.place}"/>
+                                      <p:ajax update=":form2:dataTable"    listener="#{invoice.placeChanged}" />  
+                                </p:selectOneMenu>
+                                </td>     
+                            
+                     </tr>            
+                               </table>
+                             
+                            <p:commandButton value="Dispaly" action="#{invoice.GetData}" update=":form2:dataTable"/>
+                             
+                                                  <p:commandButton value="Print"  action="#{invoice.print}"/>
+                            <p:commandButton value="Refresh"  update=":form1,:form2" action="#{invoice.refresh}" />
+                        
+                </h:form>
+                 <h:form id="form2">
+                <p:dataTable id="dataTable" var="dat" value="#{invoice.tdata}" paginator="true" rows="10" resizableColumns="true">
+                    <f:facet name="header">Sales Details</f:facet>
+                    <p:column headerText="PARTY NAME">
+                        <h:outputText value="#{dat.partyname}"/>
+                    </p:column>
+                    <p:column headerText="CITY">
+                        <h:outputText value="#{dat.city}"/>
+                    </p:column>
+                    <p:column headerText="REP Name">
+                        <h:outputText value="#{dat.represent}"/>
+                    </p:column>
+                    <p:column headerText="INV DATE">
+                        <h:outputText value="#{dat.invdate}"/>
+                    </p:column>
+                    <p:column headerText="INV NO" footerText="Total :">
+                        <h:outputText value="#{dat.invno}"/>
+                    </p:column>
+                    <p:column headerText="INV VALUE" footerText="#{invoice.amount}">
+                        <h:outputText value="#{dat.invvalue}"/>
+                    </p:column>
+                  
+                </p:dataTable>
+            </h:form>
+             <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

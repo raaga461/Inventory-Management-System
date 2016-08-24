@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title>STOCK SALES</title>
+            <style type="text/css">
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .wr {
+                    alignment-adjust: middle;
+                }
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+            </style>
+        </h:head>
+        <h:body>
+            <p:growl id="msg" showDetail="true"/>
+                         <ui:include src="/pages/commons/header.xhtml"/>
+                         <br></br>
+             <h1><center>Stock Sales Master</center></h1>
+             <br></br>
+            <h:form id="form">
+                <p:focus for="h"/>
+                <center>
+                   
+                    <table cellpadding="10">
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Item Code:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText id="h" value="#{stocksales.c.itemcode}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Item Name:"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{stocksales.c.itemname}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <p:outputLabel value="Item Categeory:"></p:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{stocksales.c.itemcategory}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <p:outputLabel value="Current Quantity:"></p:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{stocksales.c.currquantity}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <p:outputLabel value="New Quantity:"></p:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{stocksales.c.newquantity}" required="true"
+                                             requiredMessage="Enter NewQuantity">
+                                    <p:ajax event="blur" listener="#{stocksales.totalquantity}" update="quant"></p:ajax>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <p:outputLabel value="Quantity:"></p:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText id="quant" value="#{stocksales.c.quantity}" required="true"
+                                             requiredMessage="Enter Quantity"></p:inputText>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <br/>
+                         
+                        <tr>
+                            <td>
+                                <p:commandButton value="Refresh" update=":form" actionListener="#{stocksales.refresh}"></p:commandButton>
+                            </td>
+                            <td>
+                                <p:commandButton value="save" icon="ui-icon-disk" update=":form,:msg"
+                                                 disabled="#{stocksales.status}" actionListener="#{stocksales.onsave}"></p:commandButton>
+                            </td>
+                            <td>
+                                <p:commandButton value="Edit" icon="ui-icon-pencil" onclick="ser.show()"
+                                                 actionListener="#{stocksales.onsearch}"></p:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+                <p:dialog id="dialog11" header=" Search" widgetVar="ser" resizable="false" showEffect="fade"
+                          hideEffect="explode" style="width: 800px">
+                    <p:dataTable value="#{stocksales.al}" selection="#{stocksales.i}" var="sd" selectionMode="single"
+                                 rowKey="#{sd.itemcode}" paginator="true" rows="10">
+                        <f:facet name="header">ROUTES</f:facet>
+                        <p:ajax event="rowSelect" update=":form" listener="#{stocksales.onRowSelect}"
+                                oncomplete="ser.hide();"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ItemCode"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.itemcode}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ItemName"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.itemname}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+            </h:form>
+          
+            
+            <ui:include src="/pages/commons/footer.xhtml"/>
+           
+        </h:body>
+    </html>
+</f:view>
+                            
+                         
+                          

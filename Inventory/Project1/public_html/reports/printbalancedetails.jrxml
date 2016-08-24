@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5278c6bc-dc3d-40a7-86b6-07af59046b9e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#8A2BE2">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#E0BFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="ForBalance" uuid="0b6f60fa-1ef2-4fe6-aef0-979790ece5ca">
+		<parameter name="type" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$P{type}]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select * from curr_bal where optype like $P{type}]]>
+		</queryString>
+		<field name="cmpid" class="java.lang.Integer"/>
+		<field name="accno" class="java.lang.Integer"/>
+		<field name="optype" class="java.lang.String"/>
+		<field name="Cname" class="java.lang.String"/>
+		<field name="bal" class="java.lang.Double"/>
+		<group name="accesscode">
+			<groupExpression><![CDATA[]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="type" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{type}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<parameter name="parameter2" class="java.lang.String"/>
+	<parameter name="parameter3" class="java.lang.String"/>
+	<parameter name="parameter4" class="java.lang.String"/>
+	<parameter name="parameter5" class="java.lang.String"/>
+	<parameter name="parameter6" class="java.lang.String"/>
+	<parameter name="parameter7" class="java.lang.String"/>
+	<parameter name="parameter8" class="java.lang.String"/>
+	<parameter name="parameter9" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from curr_bal where optype like 'Debit']]>
+	</queryString>
+	<field name="cmpid" class="java.lang.Integer"/>
+	<field name="accno" class="java.lang.Integer"/>
+	<field name="optype" class="java.lang.String"/>
+	<field name="Cname" class="java.lang.String"/>
+	<field name="bal" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="391" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="55067719-1cbb-45b6-a3e7-6da90b39cc6b" x="152" y="196" width="218" height="37" forecolor="#990099"/>
+				<textElement>
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<text><![CDATA[CURRENT BALANCES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="61b9400f-bf26-401f-b441-4285a9362ca7" x="408" y="196" width="40" height="20"/>
+				<textElement/>
+				<text><![CDATA[Type:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="87e81d2a-468c-4e5c-a4fe-e4ef26b9377f" x="465" y="196" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{type}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="70e2099c-c032-4929-82da-28579dac4912" key="table" style="table" x="100" y="285" width="360" height="80"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ForBalance" uuid="a53714a8-87ef-4a79-95da-bf55dd266fa2">
+						<datasetParameter name="type">
+							<datasetParameterExpression><![CDATA[$P{type}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column uuid="b7ee49ca-47c6-4a14-ba43-f4eaacd6798b" width="90">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="3ded32f7-11aa-4cb7-b871-7ef94ccaa8b9" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[Account No]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="59b95cbe-510e-4e6d-ac8c-062358a10ea5" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{accno}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="735942a0-02e4-4f80-b4e7-ebaf14660c97" width="90">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="9acdecb2-f2d2-46ed-b6ab-150215424a3b" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[Type]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="f58e10e2-3bb0-4da0-a9a5-b1eab49a5765" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{optype}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="c8bd992c-3505-4898-a9e1-55e00412b69b" width="90">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="dc1192c7-c18e-4c0c-9816-24bc6aabce70" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[Company name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="31910270-ff35-4e7f-b88b-60b8edc63bf5" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{Cname}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column uuid="c898ad5d-a452-47f6-b832-97eadd9d3ab7" width="90">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="d634e665-84b2-48c4-88d5-1ada8b377983" x="0" y="0" width="90" height="30"/>
+								<textElement/>
+								<text><![CDATA[Balance]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement uuid="c2ceef37-d571-4439-bb33-f413370343e9" x="0" y="0" width="90" height="20"/>
+								<textElement/>
+								<textFieldExpression><![CDATA[$F{bal}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="e4d03664-d715-4054-a689-044e02c95747" x="21" y="196" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="d9764129-7987-4ebe-acc2-ce0465f333a6" x="13" y="29" width="89" height="108"/>
+				<imageExpression><![CDATA[$P{parameter9}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="082b00be-ae3e-4f27-9681-6aa94955e689" x="134" y="85" width="393" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bd269c80-07f8-4d90-bb7b-c22f4b66730a" x="408" y="10" width="157" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4adc588f-73d9-4c49-b9bb-57288b90957e" x="121" y="65" width="430" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b35bba64-2040-40e2-9ee4-f1246c9f492f" x="102" y="30" width="463" height="45" forecolor="#FF0000"/>
+				<textElement>
+					<font fontName="Arial" size="30" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="310dd607-d830-4dde-bbb4-615902730853" x="198" y="125" width="197" height="22" forecolor="#669900"/>
+				<textElement>
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bf3680e5-c471-4a88-ad7c-1becd6f2fc8c" x="10" y="10" width="297" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1674f8ea-88e8-4f97-bc85-655ec2e66509" x="152" y="105" width="362" height="20" forecolor="#0099FF"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parameter8}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

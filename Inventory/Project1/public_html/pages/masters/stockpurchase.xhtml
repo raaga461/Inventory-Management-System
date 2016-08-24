@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title>Stock Purchase</title>
+            <style type="text/css">
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .ui-layout-unit-content {
+                    background-image: url('images/add.jpg');
+                    background-size: 100%
+                }
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+            </style>
+        </h:head>
+         <ui:include src="/pages/commons/header.xhtml"/>
+         <br></br>
+        <h:body>
+            <center>
+                <h1>Stock Purchase Master</h1>
+            </center>
+     
+            <p:growl id="msg"/>
+             
+            <h:form id="form">
+                <center>
+                   
+                    <table cellpadding="10">
+                        <br/>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Item Code"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{stockpurchase.c.itemcode}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Item Name"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{stockpurchase.c.itemname}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Item Category"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{stockpurchase.c.itemcategory}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Current Quantity"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{stockpurchase.c.currquantity}"></p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="New Quantity"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{stockpurchase.c.newquantity}">
+                                    <p:ajax event="blur" listener="#{stockpurchase.totalquantity}" update="q"></p:ajax>
+                                </p:inputText>
+                            </td>
+                        </tr>
+                         
+                        <tr>
+                            <td>
+                                <h:outputLabel value="Quantity"></h:outputLabel>
+                            </td>
+                            <td>
+                                <p:inputText value="#{stockpurchase.c.quantity}" id="q"></p:inputText>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td>
+                                <p:commandButton value="Edit" icon="ui-icon-pencil" onclick="ser.show();"
+                                                 actionListener="#{stockpurchase.onsearch}"></p:commandButton>
+                            </td>
+                            <td>
+                                <p:commandButton value="Update" icon="ui-icon-disk" update=":form,:msg"
+                                                 actionListener="#{stockpurchase.onsave}"
+                                                 disabled="#{stockpurchase.status}"></p:commandButton>
+                            </td>
+                            <td>
+                                <p:commandButton value="Refresh" icon="ui-icon-arrowreturnthick-1-w" update=":form"
+                                                 actionListener="#{stockpurchase.refresh}"></p:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                    <p:dialog id="dialog11" header="Stock Purchase Details" widgetVar="ser" resizable="false"
+                              showEffect="fade" hideEffect="slide" style="width: 800px">
+                        <p:dataTable value="#{stockpurchase.al}" var="sd" selectionMode="single"
+                                     rowKey="#{sd.itemcode}">
+                            <p:ajax event="rowSelect" listener="#{stockpurchase.onRowSelect}" update=":form"
+                                    oncomplete="ser.hide()"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ItemCode"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.itemcode}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="ItemName"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.itemname}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <!--div style="background-color: cornflowerblue;  padding: 12px; vertical-align: middle"></div-->
+                </center>
+            </h:form>
+             
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

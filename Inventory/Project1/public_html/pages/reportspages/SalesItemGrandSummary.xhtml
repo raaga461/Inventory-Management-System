@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head></h:head>
+        <h:body>
+           <table>
+                <tr>
+                    <td>
+                        <h:form id="form1">
+                            <h:panelGrid columns="6" cellpadding="5">
+                                <p:outputLabel value="From_Date" style="font-weight:bold;"/>
+                                <p:calendar id="cal1" value="#{item.sgb.date2}" pattern="dd-MMM-yy" immediate="true"
+                                            navigator="true">
+                                    <p:ajax event="dateSelect" listener="#{item.dateSelect}" update="cal1,:form2:dataTable"/>
+                                </p:calendar>
+                                <p:outputLabel value="To_Date" style="font-weight:bold;"/>
+                                <p:calendar id="cal" value="#{item.sgb.date1}" pattern="dd-MMM-yy" navigator="true"
+                                            immediate="true">
+                                    <p:ajax event="dateSelect" listener="#{item.todateSelect}" update="cal,:form2:dataTable"/>
+                                </p:calendar>
+                                <h:outputLabel value="Tax_Type" style="font-weight:bold;"/>
+                                <p:selectOneMenu value="#{item.sgb.stype}">
+                                    <f:selectItems value="#{item.list1}"/>
+                                    <p:ajax update=":form2:dataTable" />
+                                </p:selectOneMenu>
+                           
+                            </h:panelGrid>
+                        </h:form>
+                    </td>
+                    <td align="center" valign="middle">
+                        <p:commandButton value="Dispaly" action="#{item.tableData}" update=":form2:dataTable"/>
+                         
+                        <p:commandButton value="Print"  action="#{item.print}"  />
+                         
+                        <p:commandButton value="Refresh" actionListener="#{item.refresh}" update=":form2,:form1"/>
+                    </td>
+                </tr>
+            </table>
+            <h:form id="form2">
+                <p:dataTable id="dataTable" var="dat" value="#{item.tdata}" paginator="true" rows="10">
+                    <f:facet name="header">Sales Details</f:facet>
+                    <p:column headerText="Catagory" rowspan="2" >
+                    #{dat.inam}
+                    </p:column>
+            <p:columns value="#{item.list2}"  var="column" columnIndexVar="colIndex" colspan="2">  
+ <f:facet name="header">
+#{column}
+</f:facet>
+
+  <h:outputText value="#{dat[colIndex].val1}" />
+   <h:outputText value="#{dat[colIndex].val2}" />
+    <h:outputText value="#{dat[colIndex].val3}" />
+     <h:outputText value="#{dat[colIndex].val4}" />
+      <h:outputText value="#{dat[colIndex].val5}" />
+</p:columns>
+                </p:dataTable>
+            </h:form>
+        </h:body>
+    </html>
+</f:view>

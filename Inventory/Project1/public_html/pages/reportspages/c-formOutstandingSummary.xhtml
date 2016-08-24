@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"  xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+         <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+         <ui:include src="/pages/commons/header.xhtml"/>
+            <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">C FORM OUTSTANDING SUMMARY</h1>   
+            <h:form id="form1">
+            <p:growl id="msg" autoUpdate="true"/>
+                <p:panelGrid columns="9" cellpadding="5">
+                    <h:outputLabel value="Year" style="font-weight:bold;"/>
+                    <p:selectOneMenu value="#{cfs.sd.year}">
+                        <f:selectItems value="#{cfs.mp}"/>
+                   
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel value="Representative" style="font-weight:bold;"/>
+                    <p:selectOneMenu value="#{cfs.sd.rep}">
+                        <f:selectItems value="#{cfs.mp1}"/>
+                    <p:ajax update=":form2:dataTable" listener="#{cfs.typeChanged}"/>
+                    </p:selectOneMenu>
+                     <p:commandButton value="Dispaly" action="#{cfs.tabledata}" update=":form2:dataTable"/>
+                     <p:commandButton value="Print" actionListener="#{cfs.print}"/>
+                     <p:commandButton value="Refresh" actionListener="#{cfs.refresh}" update=":form2,:form1" />
+                    
+                </p:panelGrid>
+               
+            </h:form>
+             
+            <br/>
+             
+            <h:form id="form2">
+                <p:dataTable id="dataTable" var="dat" value="#{cfs.tdata}" paginator="true" rows="10">
+                    <f:facet name="header">C FORM OUTSTANDING SUMMARY</f:facet>
+                    <p:column headerText="SNO">
+                        <h:outputText value="#{dat.k}"/>
+                    </p:column>
+                    <p:column headerText="COMPANY NAME">
+                        <h:outputText value="#{dat.rep}"/>
+                    </p:column>
+                    <p:column headerText="I QUARTER ">
+                        <h:outputText value="#{dat.qta}"/>
+                    </p:column>
+                    <p:column headerText="II QUARTER">
+                        <h:outputText value="#{dat.qtb}"/>
+                    </p:column>
+                    <p:column headerText="III QUARTER">
+                        <h:outputText value="#{dat.qtc}"/>
+                    </p:column>
+                    <p:column headerText="IV QUARTER" footerText="Total">
+                        <h:outputText value="#{dat.qtd}"/>
+                    </p:column>
+                    <p:column headerText="TOTAL" footerText="#{cfs.amt}">
+                        <h:outputText value="#{dat.total}"/>
+                    </p:column>
+                   
+                    
+                </p:dataTable>
+            </h:form>
+              <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

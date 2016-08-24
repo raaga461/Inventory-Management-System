@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+         <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+         <ui:include src="/pages/commons/header.xhtml"/>
+            <h1 style="font-family:Arial, Helvetica, sans-serif; color:inherit; font-weight:bold; text-align:center; text-decoration:underline; font-size:200%;">Cform
+                                                                                                                                                                 Status</h1>
+            <hr/>
+            <table>
+                <tr>
+                    <td width="70%">
+                        <h:form id="form1">
+                            <p:growl id="msgs" autoUpdate="true"/>
+                            <h:panelGrid columns="2" cellpadding="2" cellspacing="4">
+                                <p:outputLabel value="Year" style="font-weight:bold;"/>
+                                <p:selectOneMenu id="yr" value="#{quarter.csqb.cyear}" immediate="true">
+                                    <f:selectItem itemLabel="Select" itemValue="-2"/>
+                                    <f:selectItems value="#{quarter.yearList}" var="ylist"/>
+                                    <p:ajax event="change" listener="#{quarter.yearChanged}" update=":form1:yr"/>
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Period" style="font-weight:bold;"/>
+                                <p:selectOneMenu value="#{quarter.csqb.period}">
+                                    <f:selectItem itemValue="All" itemLabel="All"/>
+                                    <f:selectItem itemValue="Apr-Jun" itemLabel="Apr-Jun"/>
+                                    <f:selectItem itemValue="Jul-Sep" itemLabel="Jul-Sep"/>
+                                    <f:selectItem itemValue="Oct-Dec" itemLabel="Oct-Dec"/>
+                                    <f:selectItem itemValue="Jan-Mar" itemLabel="Jan-Mar"/>
+                                    <p:ajax update=":form2:dataTable" listener="#{quarter.periodChanged}"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Search Customer" style="font-weight:bold;"/>
+                                <p:inputText id="cust" value="#{quarter.csqb.cname}">
+                                    <p:ajax event="keyup" update=":form2:dataTable" listener="#{quarter.displayData}"/>
+                                </p:inputText>
+                            </h:panelGrid>
+                        </h:form>
+                    </td>
+                    <td>
+                   
+                        <p:commandButton value="Print" action="#{quarter.print}"/>
+                         
+                        <p:commandButton value="Refresh" action="#{quarter.refresh}" update=":form1,:form2,:form3"/>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+             
+            <h:form id="form2">
+                <p:growl id="msg" autoUpdate="true"/>
+                <p:dataTable id="dataTable" var="dat" value="#{quarter.tdata}" paginator="true" rows="10"
+                             resizableColumns="true" paginatorAlwaysVisible="false">
+                    <p:ajax event="rowToggle" listener="#{quarter.onRowToggle}" update="dataTable1"/>
+                    <f:facet name="header">Sales Details</f:facet>
+                    <p:column style="width:2%">
+                        <p:rowToggler/>
+                    </p:column>
+                    <p:column headerText="ACC CODE">
+                        <h:outputText value="#{dat.accCode}"/>
+                    </p:column>
+                    <p:column headerText="ACC NAME">
+                        <h:outputText value="#{dat.accName}"/>
+                    </p:column>
+                    <p:column headerText="CITY">
+                        <h:outputText value="#{dat.city}"/>
+                    </p:column>
+                    <p:column headerText="REPRESENT">
+                        <h:outputText value="#{dat.rep}"/>
+                    </p:column>
+                    <p:column headerText="INV NO">
+                        <h:outputText value="#{dat.invNo}"/>
+                    </p:column>
+                    <p:column headerText="INV VALUE">
+                        <h:outputText value="#{dat.invValue}"/>
+                    </p:column>
+                    <p:column headerText="STATUS">
+                        <h:outputText value="#{dat.status}"/>
+                    </p:column>
+                    <p:rowExpansion>
+                        <p:dataTable id="dataTable1" var="dat1" value="#{quarter.subdata}" resizableColumns="true"
+                                     selection="#{quarter.selectedcqstb}" selectionMode="single" rowKey="#{dat1.billnum}">
+                            <p:ajax event="rowSelect" update=":form3" listener="#{quarter.itemData}"
+                                    oncomplete="billDialog1.show()"/>
+                            <p:column headerText="BILL NO">
+                                <h:outputText value="#{dat1.billnum}"/>
+                            </p:column>
+                            <p:column headerText="BILL DATE">
+                                <h:outputText value="#{dat1.billDate}"/>
+                            </p:column>
+                            <p:column headerText="ACC NAME">
+                                <h:outputText value="#{dat1.acName}"/>
+                            </p:column>
+                            <p:column headerText="INV AMOUNT">
+                                <h:outputText value="#{dat1.invAmt}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:rowExpansion>
+                </p:dataTable>
+            </h:form>
+             
+            <h:form id="form3">
+                <p:dialog id="dialog1" header="Bill Detais" widgetVar="billDialog1" resizable="true" showEffect="fade"
+                          hideEffect="fade" minimizable="true" modal="true" width="900px">
+                     <h:panelGrid columns="4" cellpadding="2">
+                <p:outputLabel  value="Bill NO :" dir="rlt"/>
+                <p:outputLabel id="Billno" value="#{quarter.selectedcqstb.billnum}" />
+                <p:outputLabel  value="Date :"/>
+                <p:outputLabel id="Date" value="#{quarter.selectedcqstb.billDate}" />
+                <p:outputLabel  value="Customer Name :"/>
+                <p:outputLabel id="CC"  value="#{quarter.selectedcqstb.acName}" />
+                </h:panelGrid>
+                    <p:dataTable id="dataTable2" var="dat" value="#{quarter.idata}" resizableColumns="true">
+                        <p:column headerText="ITEM NAME">
+                            <h:outputText value="#{dat.INmae}"/>
+                        </p:column>
+                        <p:column headerText="PRICE">
+                            <h:outputText value="#{dat.price}"/>
+                        </p:column>
+                        <p:column headerText="QUANTITY">
+                            <h:outputText value="#{dat.quantity}"/>
+                        </p:column>
+                        <p:column headerText="DISC AMT">
+                            <h:outputText value="#{dat.disc}"/>
+                        </p:column>
+                        <p:column headerText="NET AMT">
+                            <h:outputText value="#{dat.net}"/>
+                        </p:column>
+                        <p:column headerText="TAX AMT">
+                            <h:outputText value="#{dat.tax}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+            </h:form>
+             <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

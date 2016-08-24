@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head></h:head>
+    <h:body>
+        <p:growl id="msg"/>
+        
+                <h:form id="menuitem">
+                    <p:menubar style="font-size: 20px;width: 1500px">
+                                <p:submenu label="Masters">
+                                    <p:submenu label="Customers">
+                                        <p:menuitem value="New Customer" url="/pages/masters/addcust.xhtml"
+                                                    update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Vendor Master">
+                                        <p:menuitem value="Adding New Vendor" url="/pages/masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Item master">
+                                        <p:menuitem value="sales item master" url="/pages/masters/salesitemmaster.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="purchase item master" url="/pages/masters/purchaseitem.xhtml"
+                                                    update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="stock master">
+                                        <p:menuitem value="sales stock master" url="/pages/masters/stocksales.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="purchase stock master"
+                                                    url="/pages/masters/stockpurchase.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Route master">
+                                        <p:menuitem value="Route master" url="/pages/masters/route.xhtml"
+                                                    update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Balance">
+                                        <p:menuitem value="Print Balance Details"
+                                                    url="/pages/masters/balancedetails.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Account groups">
+                                        <p:menuitem value="add account groups" url="/pages/masters/Account.xhtml"
+                                                    update=":msg"/>
+                                    </p:submenu>
+                                </p:submenu>
+                                <p:submenu label="Transactions">
+                                    <p:submenu label="Sales">
+                                        <p:menuitem value="Sales invoice" url="masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="modify invoice" url="masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="Sales Quotation" url="masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="modify quotation" url="masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Purchases">
+                                        <p:menuitem value="purchase indent" url="masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value=" purchase order" url="masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="purchase invoice entry" url="masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value=" purchase modify" url="masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                    </p:submenu>
+                                    <p:menuitem value="Credit Note" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                    <p:menuitem value="Debit Note" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                    <p:submenu label="Invoice Printing">
+                                        <p:menuitem value="Sales Invoice" url="masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="Purchase Invoice" url="masters/vendaddcust.xhtml"
+                                                    update=":msg"/>
+                                    </p:submenu>
+                                </p:submenu>
+                                <p:submenu label="Accounts">
+                                    <p:menuitem value="Voucher Entry" url="/pages/accounts/voucher.xhtml"
+                                                update=":msg"/>
+                                    <p:menuitem value="Cheque Returns" url="/pages/accounts/chequereturns.xhtml"
+                                                update=":msg"/>
+                                    <p:menuitem value="Input/Output tax" url="/pages/accounts/vendaddcust.xhtml"
+                                                update=":msg"/>
+                                </p:submenu>
+                                <p:submenu label="Reports">
+                                    <p:submenu label="Analysis">
+                                        <p:menuitem value="Sales Analysis by Representwise"
+                                                    url="reportspages/SalesChartByRepresentWise.xhtml" update=":msg"/>
+                                        <p:menuitem value="Sales Analysis by Itemwise"
+                                                    url="reportspages/SalesChartByItemWise.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Sales">
+                                        <p:menuitem value="sales report by dates"
+                                                    url="reportspages/SalesReportByDates.xhtml" update=":msg"/>
+                                        <p:menuitem value="sales report by representwise"
+                                                    url="reportspages/SalesRepresentWise.xhtml" update=":msg"/>
+                                        <p:menuitem value="sales report by each productwise"
+                                                    url="reportspages/SalesReportByEachProductWise.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="sales monthly report"
+                                                    url="reportspages/SalesMonthlyReport.xhtml" update=":msg"/>
+                                        <p:menuitem value="customer yearly sales report"
+                                                    url="reportspages/CustomerYearlySales.xhtml" update=":msg"/>
+                                        <p:menuitem value="Sales report by tourwise"
+                                                    url="reportspages/SalesReportByTourWise.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="C-form">
+                                        <p:menuitem value="c-form submitted parties report"
+                                                    url="reportspages/CFormSubmitParties.xhtml" update=":msg"/>
+                                        <p:menuitem value="c-form status by dates" url="reportspages/C-FormByDate.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="c-form status by quaters"
+                                                    url="reportspages/CFormStatusByQuarters.xhtml" update=":msg"/>
+                                        <p:menuitem value="c-form outstanding summary"
+                                                    url="reportspages/c-formOutstandingSummary.xhtml" update=":msg"/>
+                                        <p:menuitem value="c-form outstanding by company wise"
+                                                    url="reportspages/cformReportByCompanywise.xhtml" update=":msg"/>
+                                        <p:menuitem value="c-form outstanding by represent wise"
+                                                    url="reportspages/cFormByRepresent.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Quotations">
+                                        <p:menuitem value="sales quotations report"
+                                                    url="reportspages/salesQuotation.xhtml" update=":msg"/>
+                                        <p:menuitem value="purchase quotations report"
+                                                    url="reportspages/purchaseQuotations.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Ledger">
+                                        <p:menuitem value="ledger summary" url="reportspages/Ledgersummary.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="ledger report by companywise"
+                                                    url="reportspages/ledgerReportByCompany.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="ItemsList">
+                                        <p:menuitem value="sales items" url="reportspages/SalesItems.xhtml"
+                                                    update=":msg"/>
+                                        <p:menuitem value="purchase items" url="reportspages/PurchaseItems.xhtml"
+                                                    update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Stock master">
+                                        <p:menuitem value="curr sales item stock"
+                                                    url="reportspages/SalesItemCurrentStrock.xhtml" update=":msg"/>
+                                        <p:menuitem value="curr purchase items stock"
+                                                    url="reportspages/purchaseItemsCurrentStock.xhtml" update=":msg"/>
+                                        <p:menuitem value="sales items stock record"
+                                                    url="reportspages/salesItemsStockReport.xhtml" update=":msg"/>
+                                        <p:menuitem value="purchase items stock record"
+                                                    url="reportspages/puchaseItemsStock.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:menuitem value="purchase report" url="reportspages/PurchaseReport.xhtml"
+                                                update=":msg"/>
+                                    <p:menuitem value="voucher report" url="reportspages/VoucherReport.xhtml"
+                                                update=":msg"/>
+                                    <p:menuitem value="check returns report" url="reportspages/ChequeReturns.xhtml"
+                                                update=":msg"/>
+                                    <p:menuitem value="routes report" url="reportspages/RouteData.xhtml" update=":msg"/>
+                                    <p:menuitem value="current balance report" url="reportspages/CurrentBalance.xhtml"
+                                                update=":msg"/>
+                                    <p:menuitem value="tax types report" url="reportspages/TaxAccount.xhtml"
+                                                update=":msg"/>
+                                    <p:menuitem value="account groups report"
+                                                url="reportspages/AccountGroupReport.xhtml" update=":msg"/>
+                                    <p:menuitem value="parties outstanding report"
+                                                url="reportspages/partyOutstanding.xhtml" update=":msg"/>
+                                </p:submenu>
+                                <p:submenu label="Taxation">
+                                    <p:submenu label="Taxation master">
+                                        <p:menuitem value="Add" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="Edit" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                </p:submenu>
+                                <p:submenu label="Settings">
+                                    <p:menuitem value="Change Password" url="/pages/settings/changepwd.xhtml"
+                                                update=":msg"/>
+                                    <p:menuitem value="PDF Header Settings" url="/pages/settings/pdfhead.xhtml"
+                                                update=":msg"/>
+                                    <p:menuitem value="Backup" url="/pages/masters/vendaddcust.xhtml" update=":msg"/>
+                                    <p:menuitem value="Official Letter" url="/pages/settings/Letter.xhtml"
+                                                update=":msg"/>
+                                    <p:menuitem value="Company Information" url="/pages/settings/company.xhtml"
+                                                update=":msg"/>
+                                </p:submenu>
+                                <p:menuitem value="Help"/>
+                            </p:menubar>
+                    <p:graphicImage url="img1.jpg"/>
+                </h:form>
+           
+    </h:body>
+</html>
+

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title>Route</title>
+            <style type="text/css">
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .ui-layout-unit-content {
+                    background-image: url('images/add.jpg');
+                    background-size: 100%
+                }
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+            </style>
+        </h:head>
+        <ui:include src="/pages/commons/header.xhtml"/>
+        <br></br>
+        <center>
+            <h1>
+                Route Master
+            </h1>
+        </center>
+        <br></br>
+        <body>
+            <p:growl id="msg" showDetail="true"/>
+             
+            <p:growl id="message" autoUpdate="true"/>
+             
+            <h:form id="form">
+                <p:focus for="h"/>
+                <center>
+                   
+                    <!--<font size="6" style="text-decoration-style: wavy" color="blue">
+                    <h:outputText style="font-family: cursive ,sans-serif" value="WELCOME TO ROUTE MASTER"></h:outputText>
+             </font>-->
+                 
+                    <font size="3">
+                        <table>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Tour Name"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu id="h" value="#{route.r1.tourname}" editable="true">
+                                        <f:selectItems value="#{route.tourname1}"/>
+                                        <p:ajax event="change" listener="#{route.subtowndetails}" update="town"/>
+                                    </p:selectOneMenu>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Route ID"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{route.r1.routeid}" readonly="true"></p:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Town Name"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu value="#{route.r1.townname}" id="town" editable="true">
+                                        <f:selectItems value="#{route.townname}"/>
+                                        <p:ajax event="change" listener="#{route.representnames}" update="repname"/>
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Represent Name"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu value="#{route.r1.representname}" id="repname" editable="true">
+                                        <f:selectItems value="#{route.repname}"/>
+                                        <p:ajax event="change" listener="#{route.representdetails}" update="ad,em,ph"/>
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Represent Address"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputTextarea id="ad" value="#{route.r1.address}" autoResize="false"
+                                                     required="true" rows="2" cols="15" requiredMessage="Enter Address">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputTextarea>
+                                </td>
+                                <p:watermark for="ad" value="Enter Address"/>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Represent EMAIL"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{route.r1.email}" required="true" requiredMessage="enter email"
+                                                 id="em">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Represent Phonenumber"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{route.r1.number}" required="true"
+                                                 requiredMessage="enter phone number" id="ph">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputText>
+                                </td>
+                            </tr>
+                             </table>
+                             <table>
+                            <tr>
+                               
+                                    <td>
+                                        <p:commandButton value="save" update=":form,:msg"
+                                                         actionListener="#{route.onAddSelect}"
+                                                         disabled="#{route.status==false}">
+                                            <f:param name="VALIDATE" value="true"/>
+                                        </p:commandButton>
+                                         
+                                        <p:commandButton value="Edit" onclick="edit.show();"
+                                                         actionListener="#{route.onSearchSelect}"></p:commandButton>
+                                    </td>
+                                    <td>
+                                        <p:commandButton value="Update" update=":form"
+                                                         actionListener="#{route.onUpdateSelect}"
+                                                         disabled="#{route.status}"></p:commandButton>
+                                    </td>
+                                    <td>
+                                        <p:commandButton value="Refresh" actionListener="#{route.refresh}"
+                                                         update=":form" process="@this">
+                                            <p:resetInput target=":form"/>
+                                        </p:commandButton>
+                                    </td>
+                                </tr>
+                           
+                        </table>
+                    </font>
+                </center>
+                <p:dialog id="dialog11" header=" Search" widgetVar="edit" resizable="false" showEffect="fade"
+                          hideEffect="slide" style="width:800px">
+                    <p:dataTable value="#{route.al}" selection="#{route.r}" var="sd" selectionMode="single"
+                                 rowKey="#{sd.routeid}">
+                        <f:facet name="header">ROUTES</f:facet>
+                        <p:ajax event="rowSelect" update=":form" listener="#{route.onRowSelect}"
+                                oncomplete="edit.hide();"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="NewTour"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.routeid}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="TourName"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.tourname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="TownName"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.townname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="RepresentName"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.representname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="RepresentAddress"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.address}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="RepresentEmail"/>
+                            </f:facet>
+                            <h:outputText value="#{sd.email}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
+            </h:form>
+             
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </body>
+    </html>
+</f:view>

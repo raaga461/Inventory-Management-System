@@ -1,0 +1,383 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+     <title>customer Details</title>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+    </h:head>
+    <h:body>
+        <ui:include src="/pages/commons/header.xhtml"/>
+         <br></br>
+        <font color="black">
+            <center>
+                <h1>Customer Registration</h1>
+            </center>
+            <br></br>
+        </font>
+        <p:growl id="msg" life="200000"/>
+        <font color="black" size="2">
+            <h:form id="form">
+                <font color="black" size="2">
+                    <center>
+                        <table cellspacing="2">
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Registration Date:"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:calendar  navigator="true" value="#{addcust.c1.regdate}"
+                                                pattern="yyyy-MM-dd" readonly="true"></p:calendar>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Access Code"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.accesscode}" readonly="true"></p:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Company Name " id="c"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.companyname}" required="true"
+                                                 requiredMessage="Enter Company Name" validatorMessage="Enter Charecters only">
+                                        <f:validateRegex pattern="^[a-zA-Z ]*$"/>
+                                    </p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Category"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu value="#{addcust.c1.category}" required="true" requiredMessage="Enter Category">
+                                        <f:selectItems value="#{addcust.catarray}"/>
+                                        <p:ajax event="change" listener="#{addcust.subcatset}" update="sub"/>
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Sub Category"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu value="#{addcust.c1.subcategory}" id="sub" required="true" requiredMessage="Enter Sub category">
+                                        <f:selectItems value="#{addcust.subcatarray}"/>
+                                        <p:ajax event="change" listener="#{addcust.typedeatils}" update="ty"/>
+                                    </p:selectOneMenu>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Type"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneRadio value="#{addcust.c1.optype}" id="ty" required="true" requiredMessage="select Type">
+                                        <f:selectItem itemLabel="Debit" itemValue="Debit"/>
+                                        <f:selectItem itemLabel="Credit" itemValue="Credit"/>
+                                    </p:selectOneRadio>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Address "></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputTextarea value="#{addcust.c1.address}" required="true" requiredMessage="Enter Adress" autoResize="false"></p:inputTextarea>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="State "></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.state}" required="true" 
+                                                 requiredMessage="please enter state" validatorMessage="Enter Valid State"> <f:validateRegex pattern="^[a-zA-Z ]*$"/></p:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="City "></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.city}" required="true" requiredMessage="Enter City"> <f:validateRegex pattern="^[a-zA-Z ]*$"/></p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="pincode "></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.pincode}" required="true" requiredMessage="Enter Pincode" validatorMessage="Please Enter 6 digits pincode">
+                                        <f:validateLength minimum="5" maximum="7"/><f:validateRegex pattern="^[0-9]*$"/>
+                                    </p:inputText>
+                                </td>
+                            </tr><tr>
+                                <td>
+                                    <h:outputLabel value="Office Line"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.landline}" required="true" requiredMessage="Enter Office Contact Number"
+                                                 validatorMessage="Please Enter Numb."><f:validateLength minimum="6" maximum="15"/><f:validateRegex pattern="^[0-9]*$"/>
+                                         
+                                    </p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Fax Number"></h:outputLabel>
+                                </td>
+                            <td>
+                                    <p:inputText value="#{addcust.c1.faxno}" required="true" requiredMessage="Enter Fax Number" validatorMessage="Enter valid Fax Number" >
+                                    <f:validateLength minimum="10" maximum="10"/><f:validateRegex pattern="^[0-9]*$"/>
+                                    </p:inputText>
+                             
+                                </td>
+                            </tr><tr>
+                                <td>
+                                    <h:outputLabel value="Mobile "></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.mobile}" required="true" requiredMessage="Enter Mobile Number"   validatorMessage="Enter a Valid Mobile number">
+                                     
+                                
+                                    </p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Contact Person "></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.contactperson}" required="true" requiredMessage="Enter Contact Person"    validatorMessage="Enter Valid Contact person">
+                                        <f:validateRegex pattern="^[a-zA-Z ]*$"/>
+                                    </p:inputText>
+                                </td>
+                            </tr><tr>
+                                <td>
+                                    <h:outputLabel value="Website"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.website}" required="true" requiredMessage="Enter Website" validatorMessage="Enter Valid Website"> <f:validateRegex pattern="[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})"/></p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="E-mail"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText id="email" value="#{addcust.c1.email}" required="true"
+                                                 requiredMessage="Please Enter  Email" validatorMessage="Enter Valid Email">
+                                        <f:validateRegex
+                                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/></p:inputText>
+                                </td>
+                            </tr><tr>
+                                <td>
+                                    <h:outputLabel value="Transport"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.transport}" required="true" requiredMessage="Enter Transport" 
+                                    validatorMessage="Enter a Valid  Transport"><f:validateRegex pattern="^[a-zA-Z ]*$"/>
+                                    </p:inputText></td>
+                                <td>
+                                    <h:outputLabel value="TIN"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.tin}" required="true" requiredMessage="Enter TIN Number" validatorMessage="TIN must contain 11 Digits"> <f:validateLength minimum="11" maximum="11"/><f:validateRegex pattern="^[0-9]*$"/></p:inputText>
+                                </td>
+                            </tr><tr>
+                                <td>
+                                    <h:outputLabel value="Sales Tax"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.salestax}" required="true" requiredMessage="Enter Sales Tax" validatorMessage="Enter Valid Sales Tax Number"><f:validateRegex pattern="^[0-9]*$"/></p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Disc %"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.disc}" required="true" requiredMessage="Enter Discount %" validatorMessage="Enter Digits in Discount %"><f:validateLength minimum="0" maximum="10"/></p:inputText>
+                                </td>
+                            </tr><tr>
+                                <td>
+                                    <h:outputLabel value="Credit Lmt Amount"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.creditlmtamount}" required="true" requiredMessage="Enter Credit Limit Amount"><f:validateLength minimum="0" maximum="10"/><f:validateRegex pattern="^[0-9]*$"/></p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Credit Limit Day"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.creditlmtdays}"  required="true" requiredMessage="Enter Credit Limit Days" validatorMessage="Enter Digits as Credit Limit Days"><f:validateLength minimum="0" maximum="10"/><f:validateRegex pattern="^[0-9]*$"/></p:inputText>
+                                </td>
+                            </tr><tr>
+                                <td>
+                                    <h:outputLabel value="Opening Balance"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.openingbalance}" required="true" requiredMessage="Enter Opening Balance"></p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Current Balance"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.currentbalance}" required="true" requiredMessage="Enter Current Balance"></p:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Closing Balance"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.closingbalance}" required="true" requiredMessage="Enter Closing Balnace"></p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Bank"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.bank}" required="true" requiredMessage="Enter Bank Name" validatorMessage="Enter Valid Bank Name">  <f:validateRegex pattern="^[a-zA-Z]*$"/></p:inputText>
+                                </td>
+                            </tr><tr>
+                                <td>
+                                    <h:outputLabel value="A/C No"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.accountno}" required="true" requiredMessage="Enter Account Number" validatorMessage="Acc Number Must Contain 15 Digits"> <f:validateRegex pattern="^[0-9]*$"/>
+                                    
+                                    <f:validateLength minimum="15" maximum="15"/></p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="IFSC Code"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.ifsccode}" required="true" requiredMessage="Enter IFSC Code" validatorMessage="Size of IFS Must Be 11"> <f:validateRegex pattern="^[a-zA-Z0-9]+$"/>
+                                    <f:validateLength minimum="11" maximum="11"/></p:inputText>
+                                </td>
+                            </tr><tr>
+                                <td>
+                                    <h:outputLabel value="Route Id "></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText id="rouid" value="#{addcust.c1.routeid}" onclick="rot.show()"
+                                                 listener="#{addcust.routedata}" title="Click to Select Route" required="true" requiredMessage="Enter route ID"></p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Route"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.route}" id="route" required="true"></p:inputText>
+                                </td>
+                            </tr><tr>
+                                <td>
+                                    <h:outputLabel value="Route Rep"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.routerep}" id="rourep" required="true"></p:inputText>
+                                </td>
+                                <td>
+                                    <h:outputLabel value="Rep Phone No"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{addcust.c1.routephno}" id="rouphone" required="true" requiredMessage="Enter Representative Phone Number" 
+                                    validatorMessage="Enter Valid Rep Phone Number" ><f:validateLength minimum="10" maximum="11"/></p:inputText>
+                                </td>
+                            </tr>
+                        </table>
+                        <h:panelGrid columns="5" cellspacing="6">
+                            <p:commandButton value="add" type="submit" update=":form,:msg" icon="ui-icon-star"
+                                             actionListener="#{addcust.onAddSelect}"
+                                             disabled="#{addcust.status=='false'}"></p:commandButton>
+                            <p:commandButton value="Search" type="submit" icon="ui-icon-search" onclick="ser.show()" immediate="true"></p:commandButton>
+                            <p:commandButton id="u" value="update" type="submit" icon="ui-icon-circle-check"
+                                             onclick="ser.hide();" update=":msg"
+                                             actionListener="#{addcust.onUpdateSelect}" disabled="#{addcust.status}"></p:commandButton>
+                            <p:commandButton id="d" value="delete" type="submit" update=":msg,form:delete"
+                                             onclick="hii.show()" disabled="#{addcust.status}"></p:commandButton>
+                            <p:commandButton value="Cancel" update=":form" actionListener="#{addcust.refresh}"  process="@this"></p:commandButton>
+                        </h:panelGrid>
+                        <p:dialog id="dialog11" header=" Search" widgetVar="ser" resizable="false" showEffect="fade"
+                                  hideEffect="explode" style="width: 800px">
+                            <p:dataTable id="dt" var="sd" value="#{addcust.al}" selection="#{addcust.c}"
+                                         selectionMode="single" paginator="true" rows="10" style="width:700px"
+                                         rowKey="#{sd.accesscode}">
+                                <f:facet name="header">List of Users</f:facet>
+                                <p:ajax event="rowSelect" update=":form" listener="#{addcust.onRowSelect}"
+                                        oncomplete="ser.hide()"/>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="AccessCode"/>
+                                    </f:facet>
+                                    <h:outputText value="#{sd.accesscode}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="CompanyName"/>
+                                    </f:facet>
+                                    <h:outputText value="#{sd.companyname}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Category"/>
+                                    </f:facet>
+                                    <h:outputText value="#{sd.category}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="City"/>
+                                    </f:facet>
+                                    <h:outputText value="#{sd.city}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ContactPHno"/>
+                                    </f:facet>
+                                    <h:outputText value="#{sd.mobile}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:dialog>
+                        <p:dialog id="dilg" widgetVar="hii" resizable="false" showEffect="fade" hideEffect="explode"
+                                  header="Message Box">
+                            <h:panelGrid id="delete" columns="4" cellpadding="4">
+                                <h:outputText value="Are u Sure to delete?"/>
+                                <p:commandButton value="yes" id="yes" actionListener="#{addcust.onDeleteSelect}"
+                                                 oncomplete="hii.hide();" update=":form,:msg"></p:commandButton>
+                                <p:commandButton value="No" id="no" oncomplete="hii.hide();"></p:commandButton>
+                            </h:panelGrid>
+                        </p:dialog>
+                        <p:dialog id="routeid" widgetVar="rot" resizable="false" showEffect="fade" hideEffect="explode"
+                                  style="width: 800px">
+                            <p:dataTable id="datatab" var="rd" value="#{addcust.routearray}" selectionMode="single"
+                                         paginator="true" rows="5" style="width:700px" rowKey="#{rd.routeid}">
+                                <p:ajax event="rowSelect" update=":form:rouid,:form:route,:form:rourep,:form:rouphone"
+                                        listener="#{addcust.onRouteselect}" oncomplete="rot.hide()"/>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Route Id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{rd.routeid}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Route Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{rd.tourname}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Rep Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{rd.repname}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:dialog>
+                    </center>
+                </font>
+            </h:form>
+            <!-- <ui:include src="/pages/commons/footer.xhtml"/>-->
+        </font>
+    </h:body>
+</html>

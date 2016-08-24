@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head></h:head>
+        <h:body>
+            <h:form>
+            
+              <p:menubar style="font-size:12px">
+        <p:submenu label="SETTINGS">
+            <p:menuitem value="SchoolInfo" actionListener="#{comm.add}" update=":msg"/>
+            <p:menuitem value="New Customer" actionListener="#{comm.getNavigator}" update=":msg"/>
+            <p:menuitem value="Classes" actionListener="#{comm.getNavigator}" update=":msg"/>
+            <p:menuitem value="Subjects" actionListener="#{comm.getNavigator}" update=":msg"/>
+            <p:menuitem value="Exams" actionListener="#{comm.getNavigator}" update=":msg"/>
+            <p:submenu label="Class Subjects">
+                <p:menuitem value="Assign Subjects" actionListener="#{comm.getNavigator}" update=":msg"/>
+                <p:menuitem value="Marks Details" actionListener="#{comm.getNavigator}" update=":msg"/>
+            </p:submenu>
+        </p:submenu>
+    </p:menubar>
+    <p:menubar >
+    <p:submenu label="hi">
+        <p:menuitem value="sadfds" actionListener="#{comm.add}"/>
+    </p:submenu>
+    </p:menubar>
+            
+            </h:form>
+        </h:body>
+    </html>
+</f:view>

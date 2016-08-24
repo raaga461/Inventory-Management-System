@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+          <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+          <ui:include src="/pages/commons/header.xhtml"/>
+         <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">Sales Representative  Analysis</h1>   
+                <hr/>
+            <h:form id="form1">     
+              <p:growl id="msgs" autoUpdate="true" severity="info"/>
+            <table>
+            <tr>
+            <td width="70%"  valign="top">
+                <h:panelGrid columns="4" cellspacing="4" cellpadding="2">
+          
+                    <h:outputLabel value="From_Date:" style="font-weight:bold;"  />
+                    <p:calendar id="cal1" value="#{chartbyrep.sd.date2}" pattern="dd-MMM-yy" navigator="true" immediate="true">
+                     <p:ajax event="dateSelect" listener="#{chartbyrep.dateSelect}" update="cal1" />  
+                    </p:calendar>
+                    <h:outputLabel value="To_Date :" style="font-weight:bold; text-align:right;"/>
+               <p:calendar id="cal" value="#{chartbyrep.sd.date1}" pattern="dd-MMM-yy" >    
+                <p:ajax event="dateSelect" listener="#{chartbyrep.todateSelect}" update="cal" />  
+               </p:calendar>
+                    <h:outputLabel value="Tax_Type :" style="font-weight:bold;"/>
+                    <p:selectOneMenu value="#{chartbyrep.sd.type}" >
+                        <f:selectItems value="#{chartbyrep.taxList}"/>
+                        <p:ajax update="dataTable" listener="#{chartbyrep.typeChanged}"/>
+                        </p:selectOneMenu>
+                         <h:outputLabel value="Representative :" style="font-weight:bold;"/>
+                     <p:selectOneMenu value="#{chartbyrep.sd.repType}">
+                        <f:selectItems value="#{chartbyrep.representativeList}"/>
+                           <p:ajax update="dataTable,pieChart" listener="#{chartbyrep.repChanged}" />
+                     </p:selectOneMenu>        
+                    
+                </h:panelGrid> 
+              <br/>
+              </td>
+            
+                <td >
+                     <p:commandButton value="Dispaly" action="#{chartbyrep.tableData}" actionListener="#{chartbyrep.graphData}" update="dataTable,pieChart"  onclick="pc.show()"/>
+                    <p:commandButton value="PDF" action="#{chartbyrep.print}" />
+                      <p:commandButton value="Refresh" action="#{chartbyrep.refresh}" update=":form1"/>     
+                </td>
+            </tr>
+            <tr >
+                
+                  <td align="right" valign="middle" colspan="4" >
+               <p:pieChart widgetVar="pc" id="pieChart" value="#{chartbyrep.pieModel}"  title="Sales Chart"
+                               style="width:400px;height:300px" legendPosition="w" showDataLabels="true" rendered="#{chartbyrep.visible}"  fill="true" >    
+                 <p:ajax event="itemSelect" listener="#{chartbyrep.itemSelect}"  widgetVar="chart" update="dataTable"  />  
+    </p:pieChart>        
+                 
+               
+                </td>
+                
+                
+                  </tr>
+                </table>        
+        
+       
+          
+                <p:dataTable id="dataTable" var="dat" value="#{chartbyrep.tdata}" paginator="true" rows="10"  style="width:800;font-size:100%" >
+                  
+                    <p:column headerText="BillNO">
+                        <h:outputText value="#{dat.billno}"/>
+                    </p:column>
+                    <p:column headerText="ACCNO"  >
+                        <h:outputText value="#{dat.accno}"/>
+                    </p:column>
+                    <p:column headerText="ACCNAME" >
+                        <h:outputText value="#{dat.acname}"/>
+                    </p:column>
+                    <p:column headerText="CITY"  >
+                        <h:outputText value="#{dat.city}"/>
+                    </p:column>
+                    <p:column headerText="REP." >
+                        <h:outputText value="#{dat.rep}"/>
+                    </p:column>
+                    <p:column headerText="INV.DATE">
+                        <h:outputText value="#{dat.invdate}"/>
+                    </p:column>
+                    <p:column headerText="INV.NUMBER"  footerText="Total :" >
+                        <h:outputText value="#{dat.invno}"/>
+                    </p:column>
+                    <p:column headerText="INV.AMT" footerText="#{chartbyrep.amt}">
+                        <h:outputText value="#{dat.invvalue}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+             <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

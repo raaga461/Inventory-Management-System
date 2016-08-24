@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head> 
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+         <ui:include src="/pages/commons/header.xhtml"/>
+                <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">Sales Report By Each Product Wise</h1> 
+        <h:form id="form1">
+        
+              <p:growl id="msgs" autoUpdate="true"/>
+                <table cellspacing="10px">
+                    <tr>
+                        <td align="right">
+                            <p:outputLabel value="From_Date" style="font-weight:bold;"/>
+                        </td>
+                        <td>
+                            <p:calendar id="cal1" value="#{repbyproduct.rpw.date2}" pattern="dd-MMM-yy" navigator="true" immediate="true">
+                                <p:ajax event="dateSelect" listener="#{repbyproduct.dateSelect}" update="cal1"/>
+                            </p:calendar>
+                        </td>
+                        <td align="right">
+                            <p:outputLabel value="Sales Type" style="font-weight:bold; "/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu value="#{repbyproduct.rpw.salesType}">
+                                <f:selectItems value="#{repbyproduct.taxList}"/>
+                                <p:ajax update=":form2:dataTable" listener="#{repbyproduct.typeChanged}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td align="right">
+                            <p:outputLabel value="Route" style="font-weight:bold;"/>
+                        </td>
+                        <td>
+                            <p:selectOneMenu value="#{repbyproduct.rpw.route}">
+                                <f:selectItems value="#{repbyproduct.route}"/>
+                                <p:ajax update="place,:form2:dataTable" listener="#{repbyproduct.routeChanged}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td align="right">
+                            <p:outputLabel value="Item" style="font-weight:bold;"/>
+                        </td>
+                        <td align="left" colspan="8">
+                            <p:selectOneMenu id="item" value="#{repbyproduct.rpw.item}" filter="true" filterMatchMode="contains" panelStyle="width:150px"  
+                         effect="fade" var="p" style="width:210px">
+                                <f:selectItems value="#{repbyproduct.item}"/>
+                                <p:ajax update=":form2:dataTable" listener="#{repbyproduct.itemChanged}"/>
+                            </p:selectOneMenu>
+                        </td>
+                    </tr>
+                     <tr>
+                          <td align="right">
+                                
+                                    <p:outputLabel value="To_Date" style="font-weight:bold;"/>
+                                       </td>
+                                <td>
+                                <p:calendar id="cal" value="#{repbyproduct.rpw.date1}" pattern="dd-MMM-yy"  navigator="true" immediate="true">
+                                 <p:ajax event="dateSelect" listener="#{repbyproduct.todateSelect}" update="cal" />  
+                                </p:calendar>
+                                </td>
+                                
+                                <td align="right">
+                                
+                                  <p:outputLabel value="Representative" style="font-weight:bold;"/>
+                                      </td>
+                                 <td>
+                                <p:selectOneMenu value="#{repbyproduct.rpw.reType}"  style="width:124px">
+                                    <f:selectItems value="#{repbyproduct.representativeList}"/>
+                                     <p:ajax update="place,:form2:dataTable"    listener="#{repbyproduct.repChanged}" />  
+                                </p:selectOneMenu>
+                                </td>
+                                <td align="right">
+                                 <p:outputLabel value="Place" style="font-weight:bold;"/> 
+                                     </td>
+                                 <td>
+                                <p:selectOneMenu id="place" value="#{repbyproduct.rpw.place}" filter="true" filterMatchMode="contains">
+                             
+                                    <f:selectItems value="#{repbyproduct.place}"/>
+                                      <p:ajax update=":form2:dataTable"    listener="#{repbyproduct.placeChanged}" />  
+                                </p:selectOneMenu>
+                                </td>
+                                <td align="right">
+                                  <p:outputLabel value="Group" style="font-weight:bold;"/>
+                                      </td>
+                                 <td>
+                                <p:selectOneMenu value="#{repbyproduct.rpw.group}" filter="true" filterMatchMode="contains">
+                                    <f:selectItems value="#{repbyproduct.group}"/>
+                                      <p:ajax update="subgroup,item,:form2:dataTable"    listener="#{repbyproduct.groupChanged}" />  
+                                </p:selectOneMenu>
+                                </td>
+                                <td align="right">
+                                  <p:outputLabel  value="SubGroup" style="font-weight:bold;"/>
+                                      </td>
+                                 <td>
+                                <p:selectOneMenu id="subgroup" value="#{repbyproduct.rpw.subGroup}" filter="true" filterMatchMode="contains"  style="width:210px"  panelStyle="width:150px">
+                             
+                                    <f:selectItems value="#{repbyproduct.subgroup}"/>
+                                     <p:ajax update="item,:form2:dataTable"    listener="#{repbyproduct.subgroupChanged}" />  
+                                </p:selectOneMenu>
+                                
+                              </td>
+                                
+                               </tr>
+                               </table>
+                             
+                       
+      
+                            <p:commandButton value="Dispaly" action="#{repbyproduct.GetData}" update=":form2:dataTable"/>
+                             
+       <p:commandButton value="Print" action="#{repbyproduct.print}" />
+                            <p:commandButton value="Refresh"  update=":form1,:form2" action="#{repbyproduct.refresh}"/>
+                          
+
+                </h:form>
+                 <h:form id="form2">
+                <p:dataTable id="dataTable" var="dat" value="#{repbyproduct.tdata}" paginator="true" rows="10" resizableColumns="true">
+                    <f:facet name="header">Sales Details</f:facet>
+                    <p:column headerText="PARTY NAME">
+                        <h:outputText value="#{dat.partyName}"/>
+                    </p:column>
+                    <p:column headerText="CITY">
+                        <h:outputText value="#{dat.city}"/>
+                    </p:column>
+                    <p:column headerText="REP Name">
+                        <h:outputText value="#{dat.represents}"/>
+                    </p:column>
+                    <p:column headerText="ITEM NAME">
+                        <h:outputText value="#{dat.itemName}"/>
+                    </p:column>
+                    <p:column headerText="SUB GROUP">
+                        <h:outputText value="#{dat.itemSubgroup}"/>
+                    </p:column>
+                    <p:column headerText="GROUP">
+                        <h:outputText value="#{dat.itemGroup}"/>
+                    </p:column>
+                    <p:column headerText="QUANTITY">
+                        <h:outputText value="#{dat.quantity}"/>
+                    </p:column>
+                    <p:column headerText="INV.AMT" width="50:px">
+                        <h:outputText value="#{dat.invAmount}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+             <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+       xmlns:ui="http://java.sun.com/jsf/facelets" >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+        
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+        <ui:include src="/pages/commons/header.xhtml"/>
+        <br></br>
+        <center>
+        <h1>Purchase Invoice</h1>
+        <br></br>
+            <h:form id="f1">
+                <p:growl autoUpdate="true"/>
+                <p:hotkey bind="alt+d" update="tab" actionListener="#{tpurchase.delete}"/>
+                <font size="2">
+                    <h:panelGrid columns="10" cellpadding="10" style="float:center">
+                        <h:outputLabel value="Bill No:"/>
+                        <h:inputText id="bno" value="#{tpurchase.cdb.billno}" readonly="true"/>
+                        <p:outputLabel value="Acc No:"/>
+                        <h:inputText id="acno" value="#{tpurchase.cdb.acccode}" readonly="true"/>
+                        <h:outputLabel value="Ref No:"/>
+                        <h:inputText id="ref" value="#{tpurchase.cdb.refno}" readonly="true"/>
+                        <h:outputLabel value="Current Balance:"/>
+                        <h:inputText id="cbal" value="#{tpurchase.cdb.currbal}" readonly="true"/>
+                        <h:selectOneRadio id="opt" value="#{tpurchase.cdb.optype}">
+                            <f:selectItem itemLabel="Credit" itemValue="Credit"/>
+                            <f:selectItem itemLabel="Cash" itemValue="Debit"/>
+                        </h:selectOneRadio>
+                    </h:panelGrid>
+                    <br/>
+                    <div style="float:left;margin-right:50px">
+                        <h:panelGrid columns="2" cellspacing="5">
+                            <h:outputLabel value="Customer Name:"/>
+                            <h:inputText id="cname" value="#{tpurchase.cdb.cname}" style="width:250px">
+                                <p:ajax event="click" oncomplete="dai.show()" update="dailog2,table1"/>
+                            </h:inputText>
+                            <h:outputLabel value="City:"/>
+                            <h:inputText id="city" value="#{tpurchase.cdb.city}"/>
+                            <h:outputLabel value="Tin No:"/>
+                            <h:inputText id="tin" value="#{tpurchase.cdb.pan}"/>
+                            <h:outputLabel value="Sales Tax:"/>
+                            <h:inputText id="stax" value="#{tpurchase.cdb.stax}"/>
+                            <h:outputLabel value="NEGO Through:"/>
+                            <h:inputText id="nego" value="."/>
+                            <h:outputLabel value="Transport:"/>
+                            <h:inputText id="trns" value="#{tpurchase.cdb.transport}"/>
+                        </h:panelGrid>
+                    </div>
+                    <div style="float:left;margin-right:50px">
+                        <h:panelGrid columns="4" cellspacing="5">
+                            <h:outputLabel value="Invoice No:"/>
+                            <h:inputText id="ino" value="#{tpurchase.cdb.invno}"/>
+                            <h:outputLabel value="INVDate:"/>
+                            <p:calendar id="inv" navigator="true" value="#{tpurchase.cdb.invdate}" pattern="yyyy-MM-dd">
+                              
+                            </p:calendar>
+                            <h:outputLabel value="Order No:"/>
+                            <h:inputText id="ono" value="#{tpurchase.cdb.orno}"/>
+                            <h:outputLabel value="ORD Date:"/>
+                            <p:calendar id="ord" navigator="true" value="#{tpurchase.cdb.ordate}" pattern="yyyy-MM-dd">
+                             
+                            </p:calendar>
+                            <h:outputLabel value="LR NO :"/>
+                            <h:inputText id="lrno" value="#{tpurchase.cdb.lrno}"/>
+                            <h:outputLabel value="LR Date :"/>
+                            <p:calendar id="lrd" navigator="true" value="#{tpurchase.cdb.lrDate}" pattern="yyyy-MM-dd">
+                             
+                            </p:calendar>
+                            <h:outputLabel value="WayBill NO :"/>
+                            <h:inputText id="wno" value="#{tpurchase.cdb.waybill}"/>
+                            <h:outputLabel value="Way Date :"/>
+                            <p:calendar id="wnod" navigator="true" value="#{tpurchase.cdb.waydate}"  pattern="yyyy-MM-dd">
+                       
+                            </p:calendar>
+                            <h:outputLabel value="Sale Type :"/>
+                            <h:selectOneMenu id="stype" value="#{tpurchase.cdb.salestype}">
+                                <p:ajax listener="#{tpurchase.taxdata}" update="ttype,cf,ino"/>
+                                <f:selectItem itemLabel="Both" itemValue="Both"/>
+                                <f:selectItem itemLabel="With in State" itemValue="With in State"/>
+                                <f:selectItem itemLabel="Out of State" itemValue="Out of State"/>
+                            </h:selectOneMenu>
+                            <h:outputLabel value="Tax Type:"/>
+                            <h:selectOneMenu id="ttype" value="#{tpurchase.cdb.taxtype}">
+                                <p:ajax listener="#{tpurchase.taxChanged1}" update="cf,ino"/>
+                                <f:selectItems value="#{tpurchase.taxlist}"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                    </div>
+                    <div style="float:left;margin-right:50px">
+                        <p:panelGrid columns="3" cellspacing="15">
+                            <f:facet name="header">Tax Details</f:facet>
+                            <h:outputLabel value="VAT 5%"/>
+                            <h:outputLabel id="vat1" value="#{tpurchase.cdb.vat5a}"/>
+                            <h:outputLabel id="vat2" value="#{tpurchase.cdb.vat5b}"/>
+                            <h:outputLabel value="VAT 14.5%"/>
+                            <h:outputLabel id="vat3" value="#{tpurchase.cdb.vat14a}"/>
+                            <h:outputLabel id="vat4" value="#{tpurchase.cdb.vat14b}"/>
+                            <h:outputLabel value="CST 5%"/>
+                            <h:outputLabel id="vat5" value="#{tpurchase.cdb.cst2a}"/>
+                            <h:outputLabel id="vat6" value="#{tpurchase.cdb.cst2b}"/>
+                        </p:panelGrid>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div style="float:left">
+                        <p:panelGrid columns="2" cellspacing="5">
+                            <h:outputLabel value="Gunny Bag's:"/>
+                            <h:inputText id="gbag" value="#{tpurchase.cdb.gunybags}" style="width:25px"/>
+                            <h:outputLabel value="Bundles:"/>
+                            <h:inputText id="bundle" value="#{tpurchase.cdb.bundles}" style="width:25px"/>
+                            <h:outputLabel value="CFORM"/>
+                            <h:outputLabel id="cf" value="#{tpurchase.cdb.cformstatus}"/>
+                        </p:panelGrid>
+                    </div>
+               
+                    <div style="float:left">
+                        <h:panelGrid columns="8" cellspacing="5">
+                            <p:commandButton value="ADD" action="#{tpurchase.tableData}" update="tab" icon="ui-icon-plus" />
+                            <p:commandButton value="DELETE" partialSubmit="true" process="@this,tab"
+                                             action="#{tpurchase.delete}" icon="ui-icon-close"
+                                             update="tab,:f1:net,:f1:tax,:f1:ival,:f1:vat1,:f1:vat2,:f1:vat3,:f1:vat4,:f1:vat5,:f1:vat6"/>
+                            <p:commandButton value="SAVE" action="#{tpurchase.save}" icon="ui-icon-disk"/>
+                            <p:commandButton value=" PRINT" action="#{tpurchase.print}" icon="ui-icon-print"/>
+                            <p:commandButton value="REFRESH" actionListener="#{tpurchase.reset}" update=":f1,:f1:cname"
+                                             icon="ui-icon-arrowrefresh-1-w"></p:commandButton>
+                            <p:commandButton value="UPDATE" action="#{tpurchase.update}" icon="ui-icon-plus"/>
+                            <p:commandButton value="SEARCH" action="#{tpurchase.searchCust}" update="table4"
+                                             oncomplete="dai4.show()" icon="ui-icon-plus"/>
+                            <p:commandButton value="XLS's   "/>
+                              <h:commandButton value="Print" type="button" icon="ui-icon-print">  
+        <p:printer target="tab" />  
+    </h:commandButton>  
+                        </h:panelGrid>
+                    </div>
+                  
+                    <div style="float:left">
+                        <p:dataTable var="tb" value="#{tpurchase.tdata}" id="tab" rowIndexVar="rowIndex" editable="true"
+                                     scrollable="true" scrollWidth="1100" scrollHeight="200" editMode="cell"
+                                     rowKey="#{tb.ss}" selection="#{tpurchase.selectedprofile}">
+                            <p:column selectionMode="single" style="width:2%"/>
+                            <p:ajax event="cellEdit" listener="#{tpurchase.onCellEdit}"
+                                    update=":f1:net,:f1:tax,:f1:ival,:f1:vat1,:f1:vat2,:f1:vat3,:f1:vat4,:f1:vat5,:f1:vat6"/>
+                            <p:column headerText="SNO">
+                                <h:outputText value="#{rowIndex+1}"/>
+                            </p:column>
+                            <p:column headerText="ItemName">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{tb.iname}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:inputText value="#{tb.iname}">
+                                            <p:ajax event="select" oncomplete="dai3.show()"
+                                                    listener="#{tpurchase.rowVal}"/>
+                                        </h:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="ItemCode">
+                                <h:outputText value="#{tb.itemcode}"/>
+                            </p:column>
+                            <p:column headerText="Oridate">
+                                <h:outputText value="#{tb.orirate}"/>
+                            </p:column>
+                            <p:column headerText="Quantity">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{tb.quan}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:inputText value="#{tb.quan}"></h:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Disc1">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{tb.dis1}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:inputText value="#{tb.dis1}"></h:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Disc2">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{tb.dis2}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:inputText value="#{tb.dis2}"></h:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Disc3">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{tb.dis3}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:inputText value="#{tb.dis3}"></h:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="UnitDisc">
+                                <h:outputText id="ud" value="#{tb.udis}"/>
+                            </p:column>
+                            <p:column headerText="Disc Amt">
+                                <h:outputText id="disamt" value="#{tb.disamt}"/>
+                            </p:column>
+                            <p:column headerText="Unit Cost">
+                                <h:outputText id="ucost" value="#{tb.ucost}"/>
+                            </p:column>
+                            <p:column headerText="Tax">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{tb.tax}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <h:inputText value="#{tb.tax}"></h:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Unit Tax">
+                                <h:outputText id="utax" value="#{tb.utax}"/>
+                            </p:column>
+                            <p:column headerText="Tax Amount">
+                                <h:outputText id="tamt" value="#{tb.taxamt}"/>
+                            </p:column>
+                            <p:column headerText="Net Value">
+                                <h:outputText id="amt" value="#{tb.ntval}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                    <div style="float:left;margin-left:40px">
+                        <h:panelGrid columns="2" cellspacing="5">
+                            <h:outputLabel value="NETAMOUNT"/>
+                            <h:inputText id="net" value="#{tpurchase.cdb.ntamt}">
+                                <p:ajax listener="#{tpurchase.cal}"/>
+                            </h:inputText>
+                            <h:outputLabel value="SALES TAX"/>
+                            <h:inputText id="tax" value="#{tpurchase.cdb.salestax}">
+                                <p:ajax listener="#{tpurchase.cal}"/>
+                            </h:inputText>
+                            <h:outputLabel value="PACKING"/>
+                            <h:inputText id="pack" value="#{tpurchase.cdb.packing}">
+                                <p:ajax listener="#{tpurchase.cal}" update="pack,ival"/>
+                            </h:inputText>
+                            <h:outputLabel value="POSTAGE"/>
+                            <h:inputText id="post" value="#{tpurchase.cdb.postage}">
+                                <p:ajax listener="#{tpurchase.cal}" update="post,ival"/>
+                            </h:inputText>
+                            <h:outputLabel value="ROUND OFF"/>
+                            <h:inputText id="round" value="#{tpurchase.cdb.roundof}">
+                                <p:ajax listener="#{tpurchase.cal}" update="round,ival"/>
+                            </h:inputText>
+                            <h:outputLabel value="OTHERS"/>
+                            <h:inputText id="othr" value="#{tpurchase.cdb.others}">
+                                <p:ajax listener="#{tpurchase.cal}" update="othr,ival"/>
+                            </h:inputText>
+                            <h:outputLabel value="AUTO CHARG"/>
+                            <h:inputText id="auto" value="#{tpurchase.cdb.autochrg}">
+                                <p:ajax listener="#{tpurchase.cal}" update="auto,ival"/>
+                            </h:inputText>
+                            <h:outputLabel value="INVOICE VALUE"/>
+                            <h:inputText id="ival" value="#{tpurchase.cdb.invvalue}"></h:inputText>
+                        </h:panelGrid>
+                    </div>
+                    <p:dialog id="dialog1" header="Bill Detais" widgetVar="billDialog1" resizable="true"
+                              showEffect="fade" hideEffect="fade" minimizable="false" modal="true">
+                        <p:panelGrid columns="6">
+                            <f:facet name="header">Basic PanelGrid</f:facet>
+                            <p:outputLabel value="SNO"/>
+                            <p:inputText value="SNO"/>
+                            <p:outputLabel value="PRODUCT NAME"/>
+                            <p:inputText value="PRODUCT"/>
+                            <p:outputLabel value="CODE"/>
+                            <p:inputText value="CODE"/>
+                            <p:outputLabel value="ORI RATE"/>
+                            <p:inputText value="RATE"/>
+                            <p:outputLabel value="QUANTITY"/>
+                            <p:inputText value="QUANTITY"/>
+                            <p:outputLabel value="DISC 1%"/>
+                            <p:inputText value="DISC"/>
+                            <p:outputLabel value="DISC 2%"/>
+                            <p:inputText value="DISC"/>
+                            <p:outputLabel value="DISC 3%"/>
+                            <p:inputText value="DISC"/>
+                            <p:outputLabel value="$UNIT DISC"/>
+                            <p:inputText value="DISC"/>
+                            <p:outputLabel value="$DISC AMOUNT "/>
+                            <p:inputText value="DISC"/>
+                            <p:outputLabel value="UNIT COST "/>
+                            <p:inputText value="DISC"/>
+                            <p:outputLabel value="TAX[%] "/>
+                            <p:inputText value="DISC"/>
+                            <p:outputLabel value="$UNIT TAX "/>
+                            <p:inputText value="DISC"/>
+                            <p:outputLabel value="TAX AMOUNT "/>
+                            <p:inputText value="DISC"/>
+                            <p:outputLabel value="NET VALUE"/>
+                            <p:inputText value="DISC"/>
+                            <f:facet name="footer">
+                                <p:commandButton value="Save" icon="ui-icon-disk" title="To Save"/>
+                                <p:commandButton value="Cancel" title="To Cancel" styleClass="ui-confirmdialog-no"
+                                                 icon="ui-icon-close" onclick="billDialog1.close()"/>
+                            </f:facet>
+                        </p:panelGrid>
+                    </p:dialog>
+                    <p:dialog id="dailog2" widgetVar="dai" rendered="true" width="700" height="400">
+                        <p:dataTable id="table1" value="#{tpurchase.cdata}" var="d" rendered="true"
+                                     filteredValue="#{tpurchase.cdata1}" selectionMode="single"
+                                     selection="#{tpurchase.selectedcust}" rowKey="#{d.accno}">
+                            <p:ajax event="rowSelect" listener="#{tpurchase.onRowSelect}" update=":f1"
+                                    oncomplete="dai.hide()"/>
+                            <p:column id="s1" filterBy="#{d.accno}" headerText="accno" footerText="contains"
+                                      filterMatchMode="startsWith">
+                                <h:outputText value="#{d.accno}"/>
+                            </p:column>
+                            <p:column id="s2" filterBy="#{d.custname}" headerText="custname" footerText="contains"
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{d.custname}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:dialog id="dailog3" widgetVar="dai3" rendered="true" width="700" height="400">
+                        <p:dataTable id="table3" value="#{tpurchase.ibdata}" var="d" rendered="true"
+                                     filteredValue="#{tpurchase.ibdata1}" selectionMode="single"
+                                     selection="#{tpurchase.selectedItem}" rowKey="#{d.itemcode}">
+                            <p:ajax event="rowSelect" listener="#{tpurchase.onRowSelect1}" update=":f1:tab"
+                                    oncomplete="dai3.hide()"/>
+                            <p:column id="i1" filterBy="#{d.itemcode}" headerText="ItemCode" footerText="contains"
+                                      filterMatchMode="startsWith">
+                                <h:outputText value="#{d.itemcode}"/>
+                            </p:column>
+                            <p:column id="i2" filterBy="#{d.itemname}" headerText="ItemName" footerText="contains"
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{d.itemname}"/>
+                            </p:column>
+                            <p:column id="i3" filterBy="#{d.rate}" headerText="ItemRate" footerText="contains"
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{d.rate}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                    <p:dialog id="dailog4" widgetVar="dai4" rendered="true" width="700" height="400">
+                        <p:dataTable id="table4" value="#{tpurchase.sblist1}" var="d" rendered="true"
+                                     filteredValue="#{tpurchase.sblist2}" selectionMode="single"
+                                     selection="#{tpurchase.selectedsb}" rowKey="#{d.refno}">
+                            <p:ajax event="rowSelect" listener="#{tpurchase.onRowSelect2}" update=":f1,:f1:tab"
+                                    oncomplete="dai4.hide()"/>
+                            <p:column id="se1" filterBy="#{d.refno}" headerText="Reff No" footerText="contains"
+                                      filterMatchMode="startsWith">
+                                <h:outputText value="#{d.refno}"/>
+                            </p:column>
+                            <p:column id="se2" filterBy="#{d.cname}" headerText="Customer Name" footerText="contains"
+                                      filterMatchMode="contains">
+                                <h:outputText value="#{d.cname}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                </font>
+            </h:form>
+            <ui:include src="/pages/commons/footer.xhtml"/>
+            </center>
+        </h:body>
+    </html>
+</f:view>

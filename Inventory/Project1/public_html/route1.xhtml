@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Route</title>
+
+        <style type="text/css" >
+
+
+        </style>
+    </h:head>
+    <center> <h1><b>ROUTE</b></h1></center>
+    <body>
+        <p:growl id="msg" showDetail="true"/> 
+        <p:layout fullPage="true">  
+
+            <!--<p:layoutUnit position="north" size="80" header="Top" resizable="False" closable="true" collapsible="true">  
+                <center>
+                        <h:outputText value="WELCOME TO ROUTE MASTER">  
+                             <font colour="red" size="6"/>
+                        </h:outputText>
+                </center>
+            </p:layoutUnit> 
+            
+            <p:layoutUnit position="south" size="100" header="Bottom" resizable="true" closable="true" collapsible="true">  
+                <h:outputText value="South unit content." />  
+            </p:layoutUnit>  
+            -->
+            <!--        <p:layoutUnit position="west" size="260" header="redirect to" resizable="false" closable="false" collapsible="false">  
+        
+        
+                        <p:growl id="messages" autoUpdate="true"/>  
+                        <h:form>  
+                            <table>
+                                <tr>
+                                    <tr>
+                                        <tr>
+                                            <p:panelMenu style="width:250px">  
+                                                <tr>    <p:submenu label="Customers">  
+                                                        <p:menuitem value="Add Customer"   />  
+                                                        <p:menuitem value="Edit Customer"    />  
+                                                    </p:submenu>  ></tr>
+                                                <tr>   <p:submenu label="Vendor Master">  
+                                                        <p:menuitem value="Add Customer"   />  
+                                                        <p:menuitem value="Edit Customer"  />  
+                                                    </p:submenu>  </tr>
+                                                <p:separator />  
+                                                <tr>  <p:submenu label="Item Master" >  
+                                                        <p:menuitem value="Sales Item Master"/>  
+                                                        <p:menuitem value="Purchases Item Master"/>    
+                                                    </p:submenu>  </tr>
+                                                <p:submenu label="Stock Master" >  
+                                                    <p:menuitem value="Sales Item Master" />  
+                                                    <p:menuitem value="Purchases Item Master"/>    
+                                                </p:submenu>  
+                                                <p:submenu label="Account Details" >
+                                                    <p:menuitem value="Account Details" url="http://localhost:8084/inventory/faces/Account.xhtml"/>  
+                                                </p:submenu> 
+                                                <p:submenu label="Balance" >
+                                                    <p:menuitem value="Print Details"/>  
+                                                </p:submenu>
+                                            </p:panelMenu>  
+                                        </tr>
+                                    </tr>
+                                </tr>
+        
+                            </table> 
+                        </h:form>  
+                    </p:layoutUnit>  -->
+
+            <!--<p:layoutUnit position="east" size="300" header="Right" resizable="true" closable="true" collapsible="true" effect="drop">  
+                 <h:graphicImage value="/images/gblogo.jpg" width="250" height="600"/>  
+            </p:layoutUnit>  -->
+
+            <p:layoutUnit position="center">  
+                <link rel="stylesheet" type="text/css" href="style_1.css" />
+
+                <div id="header">
+                    <div id="logo">
+                        <h1><a href="#">IMS</a></h1>
+                    </div>
+                    <div id="slogan">
+                        <h2>Inventory Management System</h2>
+                    </div>
+                </div>
+                <!--    <div id="wrapper"> -->
+                <h:form>  <table>
+                        <tr>
+                            <td>     <p:menubar style="font-size: 20px;width: 1400px">
+                                    <p:submenu label="Masters" >
+                                        <p:submenu label="Customers">
+                                            <p:menuitem value="New Customer" url="masters/addcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Vendor Master">
+                                            <p:menuitem value="Adding New Vendor" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Item master">
+                                            <p:menuitem value="sales item master" url="masters/salesitemmaster.xhtml" update=":msg"/>
+                                            <p:menuitem value="purchase item master" url="masters/salesitemmaster.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="stock master">
+                                            <p:menuitem value="sales stock master" url="masters/stocksales.xhtml" update=":msg"/>
+                                            <p:menuitem value="purchase stock master" url="masters/salesitemmaster.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Route master">
+                                            <p:menuitem value="Route master" url="masters/route.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Balance">
+                                            <p:menuitem value="Print Balance Details" url="masters/balancedetails.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Account groups">
+                                            <p:menuitem value="add account groups" url="masters/Account.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:menuitem value="Exit"/>
+                                    </p:submenu>
+                                    <p:submenu label="Transactions">
+                                        <p:submenu label="Sales">
+                                            <p:menuitem value="Sales invoice" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="modify invoice" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Purchases">
+                                            <p:menuitem value="purchase invoice" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value=" purchase modify" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Goods returns">
+                                            <p:menuitem value="sales" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="purchases" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Quotations">
+                                            <p:menuitem value="sales quotations" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="purchase quotations" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:submenu label="modify quotation">
+                                                <p:menuitem value="sales" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                                <p:menuitem value="purchase" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            </p:submenu>
+                                        </p:submenu>
+                                        <p:menuitem value="Credit Note" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="Debit Note" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:submenu label="Invoice Printing">
+                                            <p:menuitem value="Sales Invoice" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="Purchase Invoice" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                    </p:submenu>
+                                    <p:submenu label="Accounts">
+                                        <p:menuitem value="Voucher Entry" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="Cheque Returns" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="Input/Output tax" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Reports">
+                                        <p:submenu label="Analysis">
+                                            <p:menuitem value="Sales Analysis by Representwise" url="masters/vendaddcust.xhtml"
+                                                        update=":msg"/>
+                                            <p:menuitem value="Sales Analysis by Itemwise" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Sales">
+                                            <p:menuitem value="sales report by dates" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="sales report by representwise" url="masters/vendaddcust.xhtml"
+                                                        update=":msg"/>
+                                            <p:menuitem value="sales report by each productwise" url="masters/vendaddcust.xhtml"
+                                                        update=":msg"/>
+                                            <p:menuitem value="sales monthly repport" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="customer yearly sales report" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="C-form">
+                                            <p:menuitem value="c-form submitted parties report" url="masters/vendaddcust.xhtml"
+                                                        update=":msg"/>
+                                            <p:menuitem value="c-form status by dates" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="c-form status by quaters" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="c-form outstanding summary" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="c-form outstanding by company wise" url="masters/vendaddcust.xhtml"
+                                                        update=":msg"/>
+                                            <p:menuitem value="c-form outstanding by represent wise" url="masters/vendaddcust.xhtml"
+                                                        update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Quotations">
+                                            <p:menuitem value="sales quotations report" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="purchase quotations report" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Ledger">
+                                            <p:menuitem value="ledger summary" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="ledger report by companywise" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="ItemsList">
+                                            <p:menuitem value="sales items" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="purchse items" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:submenu label="Stock master">
+                                            <p:menuitem value="curr sales item stock" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="curr purchase items stock" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="sales items stock record" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="purchase items stock record" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                        <p:menuitem value="purchase report" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="voucher report" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="check returns report" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="routes report" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="current balance report" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="customers list" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="vendors list" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="tax types report" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="account groups report" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:submenu label="Taxation">
+                                        <p:submenu label="Taxation master">
+                                            <p:menuitem value="Add" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                            <p:menuitem value="Edit" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        </p:submenu>
+                                    </p:submenu>
+                                    <p:submenu label="Settings">
+                                        <p:menuitem value="Change Password" url="settings/password.xhtml" update=":msg"/>
+                                        <p:menuitem value="PDF Header Settings" url="settings/pdfhead.xhtml" update=":msg"/>
+                                        <p:menuitem value="Backup" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="Official Letter" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="Company Information" url="masters/vendaddcust.xhtml" update=":msg"/>
+                                        <p:menuitem value="Company Creation" url="settings/pdfhead.xhtml" update=":msg"/>
+                                    </p:submenu>
+                                    <p:menuitem value="Help"/>
+                                </p:menubar> </td>
+                            <td>       <p:commandLink style="margin-left:40px;font-family: Segoe-ui" title="Logout">  
+                                    <p:graphicImage  value="/images/logout_1.png"/> 
+                                </p:commandLink> </td>
+
+                        </tr>
+                    </table>
+                </h:form>
+                <p:growl id="message" autoUpdate="true"/>  
+                <h:form id="prabha">
+
+                    <p:focus for="h"/>
+                    <center>
+                        <!--  <div style="background-color: cadetblue; height: 40px; padding: 10px; vertical-align: middle">-->
+                        <font size="6"  style="text-decoration-style: wavy" color="#4AA0E4"> 
+                            <h:outputText   value="WELCOME TO ROUTE MASTER">  
+
+                            </h:outputText>
+
+                        </font>
+
+
+                        <font  color="#000" size="4" > 
+
+                            <table cellpadding="15" cellsacing="30">    
+                                <tr> <td><h:outputLabel value="CompanyID:" style="font-family: fantasy"> </h:outputLabel></td>
+                                    <td>    <p:inputText value="#{route.r1.companyid}" required="true" ></p:inputText></td></tr>
+                                <tr><td>  <h:outputLabel value="Tour Name:" style="font-family: fantasy" > </h:outputLabel></td>
+                                    <td> <p:selectOneMenu id= "h" value="#{route.r1.tourname}"  editable="true"> 
+                                            <f:selectItem itemLabel="SELECT" itemValue="SELECT" />
+                                            <f:selectItem itemLabel="SELECT" itemValue="SELECT" />
+                                            <f:selectItem itemLabel="SELECT" itemValue="SELECT" />
+                                            <f:selectItem itemLabel="SELECT" itemValue="SELECT" />
+
+                                            <!--<f:selectItem itemLabel="SELECT" itemValue="SELECT" />
+                                              <f:selectItem itemLabel="BANGALORE" itemValue="BANGALORE" />  
+                                              <f:selectItem itemLabel="BELLARY" itemValue="BELLARY" />  
+                                              <f:selectItem itemLabel="BHADRACHALAM" itemValue="BHADRACHALAM" />  
+                                              <f:selectItem itemLabel="CUTTACK" itemValue="CUTTACK" />  
+                                              <f:selectItem itemLabel="HYDERABAD" itemValue="HYDERABAD" />  
+                                              <f:selectItem itemLabel="KURNOOL" itemValue="KURNOOL" />  
+                                              <f:selectItem itemLabel="LOCAL" itemValue="LOCAL" />  
+                                              <f:selectItem itemLabel="MIRYALAGUDEM" itemValue="MIRYALAGUDEM" />
+                                              <f:selectItem itemLabel="ONGOLE" itemValue="ONGOLE" />  
+                                              <f:selectItem itemLabel="RAJAHMUNDRY" itemValue="RAJAHMUNDRY" />  
+                                              <f:selectItem itemLabel="SHOLAPUR" itemValue="SHOLAPUR" />  
+                                              <f:selectItem itemLabel="SINDHANUR" itemValue="SINDHANUR" />  
+                                              <f:selectItem itemLabel="SINGLE TOUR" itemValue="SINGLE TOUR" />  
+                                              <f:selectItem itemLabel="TADEPALLIGUDEM" itemValue="TADEPALLIGUDEM" />  
+                                              <f:selectItem itemLabel="TIRUPATHI" itemValue="TIRUPATHI" />  
+                                              <f:selectItem itemLabel="VELLORE" itemValue="VELLORE" />
+                                              <f:selectItem itemLabel="VIZAG" itemValue="VIZAG" />  
+                                              <f:selectItem itemLabel="VIZAINAGARAM" itemValue="VIZAINAGARAM" />-->
+                                        </p:selectOneMenu>  </td>
+                                    <td>    <h:outputText  value="#{route.r1.newtour}"></h:outputText></td>
+                                </tr>
+                                <tr> <td> <h:outputLabel value="Town Name:" style="font-family: fantasy" > </h:outputLabel></td>
+                                    <td>   <p:selectOneMenu value="#{route.r1.townname}" >  
+                                            <f:selectItem itemLabel="SELECT" itemValue="SELECT" />
+                                            <!-- <f:selectItem itemLabel="SELECT" itemValue="" />
+                                             <f:selectItem itemLabel="JAGADALPUR" itemValue="JAGADALPUR" />  
+                                             <f:selectItem itemLabel="JAIPUR" itemValue="JAIPUR" />  
+                                             <f:selectItem itemLabel="PARVATHIPURAM" itemValue="PARVATHIPURAM" />  
+                                             <f:selectItem itemLabel="RAYAGADA" itemValue="RAYAGADA" />  
+                                             <f:selectItem itemLabel="SALURU" itemValue="SALURU" />  
+                                             <f:selectItem itemLabel="VIZIANAGARAM" itemValue="VIZIANAGARAM" /-->  
+                                        </p:selectOneMenu>                </td></tr>           
+                                <tr> <td><h:outputLabel value="Represent Name:" style="font-family: fantasy" > </h:outputLabel></td>
+                                    <td><p:selectOneMenu value="#{route.r1.representname}" >  
+                                            <f:selectItem itemLabel="SELECT" itemValue="SELECT" />
+                                            <!--f:selectItem itemLabel="SELECT" itemValue="" />
+                                            <f:selectItem itemLabel="G.V.S.N" itemValue="G.V.S.N" />  
+                                            <f:selectItem itemLabel="G.V.S.R" itemValue="G.V.S.R" />  
+                                            <f:selectItem itemLabel="P.N.R" itemValue="P.N.R" />  
+                                            <f:selectItem itemLabel="V.L.P" itemValue="V.L.P" />  
+                                            <f:selectItem itemLabel="Y.K.M" itemValue="Y.K.M" /-->  
+                                        </p:selectOneMenu>  </td></tr>
+                                <tr>
+                                    <td> <h:outputLabel value="Represent Address:" style="font-family: fantasy" ></h:outputLabel></td>
+                                    <td><p:inputTextarea id="ad" value="#{route.r1.address}" autoResize="false" required="true" rows="2" cols="15" requiredMessage="Enter Address"></p:inputTextarea></td>
+                                    <p:watermark for="ad" value="Enter Address"  />
+                                </tr>
+                                <tr> <td><h:outputLabel value="Represent EMAIL:"  style="font-family: fantasy"> </h:outputLabel></td>
+                                    <td>    <p:inputText value="#{route.r1.email}" required="true" requiredMessage="enter email"></p:inputText></td></tr>
+
+                                <tr> <td><h:outputLabel value="Represent Phonenumber:" style="font-family: fantasy" > </h:outputLabel></td>
+                                    <td>    <p:inputText value="#{route.r1.number}" required="true" requiredMessage="enter phone number"></p:inputText></td></tr>
+                            </table><table> 
+                                <br/>
+                                <tr>
+                                    <td> <p:commandButton   value="save" icon="ui-icon-disk" update=":prabha,:msg" actionListener="#{route.onAddSelect}"> </p:commandButton> </td>                 
+                                    <!-- <td> <p:commandLink ajax="true"  update=":prabha,:msg">  
+                                             <p:graphicImage value="/images/save2.png" style="height: 55px;width: 105px"/>  
+
+                                         </p:commandLink>  </td> -->
+                                    <td><p:commandButton value="Edit"  icon="ui-icon-pencil"  onclick="edit.show()"  actionListener="#{route.onSearchSelect}" ></p:commandButton></td> 
+                                    <!-- <td> <p:commandLink ajax="true"   onclick="edit.show()">  
+                                            <p:graphicImage value="/images/edit.png" style="height: 55px;width: 105px"/>  
+
+                                        </p:commandLink>  </td>--> 
+                                    <td>  <p:commandButton value="Update" icon="ui-icon-circle-arrow-n" update=":prabha" actionListener="#{route.onUpdateSelect}"></p:commandButton></td>   
+                                    <td>  <p:commandButton value="Clear" icon="ui-icon-closethick" update=":prabha" actionListener="#{route.refresh}"></p:commandButton></td>   
+                                    <!--        <td> <p:commandLink ajax="true"   update=":prabha">  
+                                                  <p:graphicImage value="/images/clear.png" style="height: 55px;width: 105px"/>  
+  
+                                              </p:commandLink>  </td> -->
+                                </tr>
+                            </table> </font></center>
+                    <p:dialog id="dialog11" header=" Search" widgetVar="edit" resizable="false"  
+                              showEffect="fade" hideEffect="slide" style="width: 800px">  
+                        <p:dataTable value="#{route.al}" selection="#{route.r}"  var="sd" selectionMode="single" rowKey="#{sd.newtour}">
+                            <f:facet name="header">
+                                ROUTES
+                            </f:facet>
+                            <p:ajax event="rowSelect" update=":prabha" listener="#{route.onRowSelect}" oncomplete="edit.hide();"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NewTour"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.newtour}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="TourName"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.tourname}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="TownName"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.townname}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="RepresentName"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.representname}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="RepresentAddress"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.address}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="RepresentEmail"/>
+                                </f:facet>
+                                <h:outputText value="#{sd.email}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:dialog>
+                </h:form>
+
+
+                <div id="footer">
+                    <center>        <table>  <tr> <td>  <p:graphicImage value="/images/copy.png"/> </td> <td>Powered by<a href="http://GreenBuds.co.in/"> GreenBuds</a></td></tr>
+                        </table> </center>  </div>
+            </p:layoutUnit> 
+            <!--   <marquee>    <div style="padding: 5px; vertical-align: middle">
+                   <center>      <font size="3"  style="text-decoration-style: wavy" color="#FFF">
+                           <h:outputText   value="Powered By" > 
+                           </h:outputText><h:graphicImage value="/images/greenbuds.JPG" height="20" width="150"></h:graphicImage>
+                       </font>
+                   </center>  </div>
+               </marquee> -->       </p:layout>  
+
+
+    </body>
+</html>

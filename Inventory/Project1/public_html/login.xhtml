@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <noscript>
+                <link rel="stylesheet" href="css/5grid/core.css"/>
+                <link rel="stylesheet" href="css/5grid/core-desktop.css"/>
+                <link rel="stylesheet" href="css/5grid/core-1200px.css"/>
+                <link rel="stylesheet" href="css/5grid/core-noscript.css"/>
+                <link rel="stylesheet" href="css/style.css"/>
+                <link rel="stylesheet" href="css/style-desktop.css"/>
+            </noscript>
+            <link rel="stylesheet" type="text/css" href="login/css/demo.css"/>
+            <link rel="stylesheet" type="text/css" href="login/css/style1.css"/>
+            <link rel="stylesheet" type="text/css" href="login/css/animate-custom.css"/>
+            <script src="css/5grid/jquery.js"></script>
+            <script src="css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none"></script>
+        </h:head>
+        <h:body class="column1">
+            <div id="header-wrapper">
+                <header id="header">
+                    <div class="5grid-layout">
+                        <div class="row">
+                            <div class="12u" id="logo">
+                                <!-- Logo -->
+                                <h1>
+                                    <a href="#" class="mobileUI-site-name">Inventory Management System</a>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu-wrapper">
+                        <div class="5grid-layout">
+                            <div class="row">
+                                <div class="12u" id="menu">
+                                    <nav class="mobileUI-site-nav">
+                                        <ul>
+                                            <li>
+                                                <a href="index.html">Homepage</a>
+                                            </li>
+                                             
+                                            <li class="current_page_item">
+                                                <a href="twocolumn1.html">Login</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            </div>
+            <div id="page-wrapper">
+                <div id="page-bgtop">
+                    <div id="page-bgbtm">
+                        <div id="page" class="5grid-layout">
+                            <div id="page-content-wrapper">
+                                <div class="row">
+                                    <div id="container_demo">
+                                        <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+                                        <a class="hiddenanchor" id="toregister"></a>
+                                         
+                                        <a class="hiddenanchor" id="tologin"></a>
+                                        <div id="wrapper">
+                                            <div id="login" class="animate form">
+                                                <p:growl id="msg" sticky="false"/>
+                                                 
+                                                <h:form id="form">
+                                                    <h1>Log in</h1>
+                                                    <p>
+                                                        <label for="username" class="uname" data-icon="u">Your Company
+                                                                                                          Name</label>
+                                                         
+                                                        <p:inputText id="username" required="true"
+                                                                     requiredMessage="Enter CompanyId!"
+                                                                     value="#{userController.userid}">
+                                                            <f:validateLength minimum="1"/>
+                                                        </p:inputText>
+                                                    </p>
+                                                    <p>
+                                                        <label for="password" class="youpasswd" data-icon="p">Password</label>
+                                                         
+                                                        <p:password id="password" required="true"
+                                                                    requiredMessage="Enter password!"
+                                                                    value="#{userController.password}">
+                                                            <f:validateLength minimum="1"/>
+                                                        </p:password><!-- <input id="username" name="username" required="required"
+                                                               type="text" placeholder="Enter UserId"/> --><!-- <input id="password" name="password" required="required"
+                                                               type="password" placeholder="Enter Passsword"/> -->
+                                                    </p>
+                                                    <p class="keeplogin">
+                                                        <!--<input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
+									<label for="loginkeeping">Forgot Password</label> -->
+                                                        <p:commandLink>
+                                                            <h:outputText value="Forgot Password"/>
+                                                        </p:commandLink>
+                                                    </p>
+                                                    <p class="login button">
+                                                        <p:commandLink actionListener="#{userController.login}"
+                                                                       update=":msg">
+                                                            <input type="submit" value="Login"/>
+                                                        </p:commandLink>
+                                                    </p>
+                                                    <!--   <p class="change_link">
+									Not a member yet ?
+									<a href="#toregister" class="to_register">Join us</a>
+								</p> -->
+                                                </h:form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--	<div class="12u">
+							<div class="row">
+								<div class="8u">
+									<section id="content">
+										<h2>Two Column #1</h2>
+										<p class="subtitle">Donec leo, vivamus fermentum nibh in augue praesent a lacus</p>
+										<p><a href="#"><img src="images/pics02.jpg" alt=""></a></p>
+										<p>Pellentesque pede. Donec pulvinar ullamcorper metus. In eu odio at lectus pulvinar mollis. Vestibulum sem magna, elementum ut, vestibulum eu, facilisis quis, arcu. Mauris a dolor. Nulla facilisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed blandit. Phasellus pellentesque, ante nec iaculis dapibus, eros justo auctor lectus, a lobortis lorem mauris quis nunc. Praesent pellentesque facilisis elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. In hac habitasse platea dictumst. Nullam id ante eget dui vulputate aliquam. Pellentesque erat erat, tincidunt in, eleifend accumsan, malesuada eget, augue. Suspendisse sit amet tellus in eros bibendum condimentum. Vestibulum suscipit volutpat nulla. Pellentesque pede. Donec pulvinar ullamcorper metus. In eu odio at lectus pulvinar mollis.</p>
+										<br /><br />
+										<p>Pellentesque pede. Donec pulvinar ullamcorper metus. In eu odio at lectus pulvinar mollis. Vestibulum sem magna, elementum ut, vestibulum eu, facilisis quis, arcu. Mauris a dolor. Nulla facilisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed blandit. Phasellus pellentesque, ante nec iaculis dapibus, eros justo auctor lectus, a lobortis lorem mauris quis nunc. Praesent pellentesque facilisis elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. In hac habitasse platea dictumst. Nullam id ante eget dui vulputate aliquam. Pellentesque erat erat, tincidunt in, eleifend accumsan, malesuada eget, augue. Suspendisse sit amet tellus in eros bibendum condimentum. Vestibulum suscipit volutpat nulla. Pellentesque pede. Donec pulvinar ullamcorper metus. In eu odio at lectus pulvinar mollis.</p>
+									</section>
+								</div>
+								<div class="4u">
+									<section id="sidebar">
+										<h2>Gravida nibh quis urna</h2>
+										<p class="subtitle">praesent a lacus</p>
+										<ul class="style1">
+											<li class="first">
+												<p class="date"><a href="#">September<b>11</b></a></p>
+												<p><a href="#">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Maecenas luctus lectus.</a></p>
+											</li>
+											<li>
+												<p class="date"><a href="#">September<b>09</b></a></p>
+												<p><a href="#">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Maecenas luctus lectus.</a></p>
+											</li>
+											<li>
+												<p class="date"><a href="#">September<b>07</b></a></p>
+												<p><a href="#">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Maecenas luctus lectus.</a></p>
+											</li>
+											<li>
+												<p class="date"><a href="#">September<b>04</b></a></p>
+												<p><a href="#">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Maecenas luctus lectus.</a></p>
+											</li>
+											<li>
+												<p class="date"><a href="#">September<b>01</b></a></p>
+												<p><a href="#">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Maecenas luctus lectus.</a></p>
+											</li>
+										</ul>
+									</section>
+								</div>
+							</div>
+						</div> 
+					</div>
+					<div class="row">
+						<section>
+							<div class="divider"></div>
+						</section>
+					</div>
+					<div class="row" id="onecolumn">
+						<div class="12u">
+							<section>
+								<div><a href="#"><img src="images/pics03.jpg" alt=""></a>
+									<h2>Integer gravida nibh quis urna</h2>
+									<p class="subtitle">Donec leo, vivamus fermentum nibh in augue praesent a lacus</p>
+									<p>Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget, tempus et, tellus. Etiam neque. Vivamus consequat lorem at nisl. Nullam non wisi a sem semper eleifend. Donec mattis libero eget urna. Duis pretium velit ac mauris. Proin eu wisi suscipit nulla suscipit interdum. Aenean lectus lorem, imperdiet at, ultrices eget, ornare et, wisi. Pellentesque adipiscing purus ac magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque pede. Donec pulvinar ullamcorper metus. In eu odio at lectus pulvinar mollis. Vestibulum sem magna, elementum ut, vestibulum eu, facilisis quis, arcu. Mauris a dolor. Nulla facilisi. Cum sociis natoque penatibus et magnis dis  montes, nascetur ridiculus mus. Sed blandit. Phasellus pellentesque, ante nec iaculis, eros justo auctor lectus, a lobortis lorem mauris quis nunc. Praesent pellentesque facilisis elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos.  Donec mattis libero eget urna. Duis pretium velit ac mauris. Proin eu wisi suscipit nulla suscipit interdum. Aenean lectus lorem, imperdiet at, ultrices eget, ornare et, wisi. Donec pulvinar ullamcorper metus. In eu odio at lectus pulvinar mollis. Vestibulum sem magna, elementum ut, vestibulum eu, facilisis quis, arcu. Mauris a dolor. Nulla facilisi. Cum sociis natoque penatibus et magnis dis  montes, nascetur ridiculus mus. Sed blandit. </p>
+								</div>
+							</section>
+						</div> -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="12u">
+                                    <div class="row" id="footer-content">
+                                        <!--	<div class="4u" id="box1">
+								<section>
+									<h2>Maecenas luctus lectus</h2>
+									<ul class="style1">
+										<li class="first">
+											<p class="date"><a href="#">September<b>11</b></a></p>
+											<p><a href="#">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Maecenas luctus lectus.</a></p>
+										</li>
+										<li>
+											<p class="date"><a href="#">September<b>09</b></a></p>
+											<p><a href="#">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum. Maecenas luctus lectus.</a></p>
+										</li>
+									</ul>
+								</section>
+							</div>
+							<div class="4u" id="box2">
+								<section>
+									<h2>Donec dictum metus</h2>
+									<ul class="style1">
+										<li class="first"><a href="#">Pellentesque quis elit non lectus gravida blandit.</a></li>
+										<li><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</a></li>
+										<li><a href="#">Phasellus nec erat sit amet nibh pellentesque congue.</a></li>
+										<li><a href="#">Cras vitae metus aliquam risus pellentesque pharetra.</a></li>
+										<li><a href="#">Duis non ante in metus commodo euismod lobortis.</a></li>
+									</ul>
+								</section>
+							</div>
+							<div class="4u" id="box3">
+								<section>
+									<h2>Nulla luctus eleifend</h2>
+									<ul class="style1">
+										<li class="first"><a href="#">Pellentesque quis elit non lectus gravida blandit.</a></li>
+										<li><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</a></li>
+										<li><a href="#">Phasellus nec erat sit amet nibh pellentesque congue.</a></li>
+										<li><a href="#">Cras vitae metus aliquam risus pellentesque pharetra.</a></li>
+										<li><a href="#">Duis non ante in metus commodo euismod lobortis.</a></li>
+									</ul>
+								</section>
+							</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="copyright" class="5grid-layout">
+                <section>
+                    <p>
+                        &copy; Powered by 
+                        <a href="http://greenbuds.co.in/">GreenBuds</a>
+                    </p>
+                </section>
+            </div>
+        </h:body>
+    </html>
+</f:view>

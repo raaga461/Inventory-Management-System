@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>  
+         <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+        <ui:include src="/pages/commons/header.xhtml"/>
+            <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">C FORM REPORT BY REPRESENT WISE</h1>
+              
+            <h:form id="form1">
+            <p:growl id="msg" autoUpdate="true"/>
+                <p:panelGrid columns="9" cellpadding="5">
+                  <table>
+                <tr>
+                    <p:outputLabel value="From_Date" style="font-weight:bold;"/>
+                    <p:calendar id="cal1" value="#{cfr.sd.date2}" pattern="dd-MMM-yy" immediate="true" navigator="true">
+                     
+                    </p:calendar>
+                    <p:outputLabel value="To_Date" style="font-weight:bold;"/>
+               <p:calendar id="cal" value="#{cfr.sd.date1}" pattern="dd-MMM-yy" navigator="true" immediate="true" >
+               
+               
+               </p:calendar>
+               
+                    <h:outputLabel value="Year" style="font-weight:bold;"/>
+                    <p:selectOneMenu value="#{cfr.sd.yr}">
+                        <f:selectItems value="#{cfr.mp}"/>
+                    <p:ajax update=":form2:dataTable" listener="#{cfc.typeChanged}"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="Representative" style="font-weight:bold;"/>
+                    <p:selectOneMenu value="#{cfr.sd.rep}">
+                        <f:selectItems value="#{cfr.mp1}"/>
+                    <p:ajax update=":form2:dataTable" listener="#{cfr.typeChanged}"/>
+                    </p:selectOneMenu>
+                    </tr>
+                    <tr>
+                     <p:commandButton value="Dispaly" action="#{cfr.tabledata}" update=":form2:dataTable"/>
+                     <p:commandButton value="Print" actionListener="#{cfr.print}"/>
+                     <p:commandButton value="Refresh" actionListener="#{cfr.refresh}" update=":form2,:form1" />
+                    </tr>
+                    </table>
+                </p:panelGrid>
+               
+            </h:form>
+             
+            <br/>
+             
+            <h:form id="form2">
+                <p:dataTable id="dataTable" var="dat" value="#{cfr.tdata}" paginator="true" rows="10">
+                    <f:facet name="header">C FORM REPORT BY REPRESENT WISE</f:facet>
+                    <p:column headerText="SNO">
+                        <h:outputText value="#{dat.sno}"/>
+                    </p:column>
+                    <p:column headerText="DATE">
+                        <h:outputText value="#{dat.sdate}"/>
+                    </p:column>
+                    <p:column headerText="BILLNO">
+                        <h:outputText value="#{dat.billno}"/>
+                    </p:column>
+                    <p:column headerText="INVOICE NO">
+                        <h:outputText value="#{dat.ino}"/>
+                    </p:column>
+                    <p:column headerText="NAME">
+                        <h:outputText value="#{dat.name}"/>
+                    </p:column>
+                    <p:column headerText="INVOICE AMOUNT">
+                        <h:outputText value="#{dat.iamt}"/>
+                    </p:column>
+                    <p:column headerText="REPRESENT">
+                        <h:outputText value="#{dat.rep}"/>
+                    </p:column>
+                    <p:column headerText="I QUARTER ">
+                        <h:outputText value="#{dat.qta}"/>
+                    </p:column>
+                    <p:column headerText="II QUARTER">
+                        <h:outputText value="#{dat.qtb}"/>
+                    </p:column>
+                    <p:column headerText="III QUARTER">
+                        <h:outputText value="#{dat.qtc}"/>
+                    </p:column>
+                    <p:column headerText="IV QUARTER">
+                        <h:outputText value="#{dat.qtd}"/>
+                    </p:column>
+                     <p:column headerText="TOTAL">
+                        <h:outputText value="#{dat.total}"/>
+                    </p:column>
+                    
+                        <f:facet  name="footer">
+                            <h:outputLabel id="amount" value="Total amount is #{cfr.amt}"/>
+                        </f:facet>
+                </p:dataTable>
+            </h:form>
+              <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

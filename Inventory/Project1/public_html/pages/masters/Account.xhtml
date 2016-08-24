@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+            <title>ACCOUNT GROUP</title>
+            <style type="text/css">
+                .ui-widget {
+                    font-size: 90% !important;
+                }
+
+                .ui-layout-unit-content {
+                    background-image: url('images/add.jpg');
+                    background-size: 100%
+                }
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+            </style>
+        </h:head>
+        <ui:include src="/pages/commons/header.xhtml"/>
+        <center>
+            <h1>
+                <b>ACCOUNT GROUP</b>
+            </h1>
+        </center>
+        <body>
+            <p:growl id="msg" showDetail="true"/>
+             
+            <h:form id="form">
+                <font color="black" size="4.5">
+                    <p:focus for="h"/>
+                    <center>
+                        <br></br>
+                        <table>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Account No"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{account.a1.accountnumber}" required="true" readonly="true"></p:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Sub Account No"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{account.a1.subnumber}" required="true" readonly="true"></p:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Under Group"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu id="h" value="#{account.a1.undergroup}">
+                                        <f:selectItems value="#{account.catarray}"/>
+                                        <p:ajax event="change" listener="#{account.subcatset}" update="sub"/>
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="New Account Group"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu id="sub" value="#{account.a1.newaccgroup}">
+                                        <f:selectItems value="#{account.subcatarray}"/>
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                             
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Opening Balance"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{account.a1.openingbal}" required="true"
+                                                 requiredMessage="Enter Opening Balance">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Current Balance"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{account.a1.currentbalance}" required="true"
+                                                 requiredMessage="Enter Current Balance">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputText>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Type"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu id="d" value="#{account.a1.type}">
+                                       
+                                        <f:selectItem itemLabel="DEBIT" itemValue="DEBIT"/>
+                                        <f:selectItem itemLabel="CREDIT" itemValue="CREDIT"/>
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Notes"></h:outputLabel>
+                                </td>
+                                <td>
+                                    <p:inputTextarea id="ad" value="#{account.a1.notes}" required="true" rows="2"
+                                                     cols="15" requiredMessage="Enter Address">
+                                        <f:validateRequired disabled="#{!param['VALIDATE']}"/>
+                                    </p:inputTextarea>
+                                </td>
+                                <p:watermark for="ad" value="Enter notes if required"/>
+                            </tr>
+                             
+                            <tr>
+                                <td>
+                                    <p:commandButton value="New" actionListener="#{account.refresh}" update=":form"
+                                                     process="@this">
+                                        <p:resetInput target=":form"/>
+                                    </p:commandButton>
+                                </td>
+                                <td>
+                                    <p:commandButton value="save" update=":msg,:form" disabled="#{account.status}"
+                                                     actionListener="#{account.onAddSelect}">
+                                        <f:param name="VALIDATE" value="true"/>
+                                    </p:commandButton>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </center>
+                </font>
+            </h:form>
+             
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </body>
+    </html>
+</f:view>

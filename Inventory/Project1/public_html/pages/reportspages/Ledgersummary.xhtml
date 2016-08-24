@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"  xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+         <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+         <ui:include src="/pages/commons/header.xhtml"/>
+            <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">Ledger Summary Report</h1>   
+            <h:form id="form1">
+            <p:growl id="msg" autoUpdate="true"/>
+                <p:panelGrid columns="9" cellpadding="5">
+                    <p:outputLabel value="From_Date" style="font-weight:bold;"/>
+                    <p:calendar id="cal1" value="#{ledger.sd.date2}" pattern="dd-MMM-yy" immediate="true" navigator="true">
+                     <p:ajax event="dateSelect" listener="#{ledsum.dateSelect}" update="cal1,:form2:dataTable" />  
+                    </p:calendar>
+                    <p:outputLabel value="To_Date" style="font-weight:bold;"/>
+               <p:calendar id="cal" value="#{ledger.sd.date1}" pattern="dd-MMM-yy" navigator="true" immediate="true" >
+               
+               <p:ajax event="dateSelect" listener="#{ledsum.todateSelect}" update="cal,:form2:dataTable" />  
+               </p:calendar>
+                    
+                     <p:commandButton value="Dispaly" action="#{ledsum.tabledata}" update=":form2:dataTable"/>
+                <p:commandButton value="Print" actionListener="#{ledsum.print}"/>
+                  <p:commandButton value="Refresh" actionListener="#{ledsum.refresh}" update=":form2,:form1" />
+                    
+                </p:panelGrid>
+               
+            </h:form>
+             
+            <br/>
+             
+            <h:form id="form2">
+                <p:dataTable id="dataTable" var="dat" value="#{ledsum.ldata}" paginator="true" rows="10">
+                    <f:facet name="header">Ledger Details</f:facet>
+                    <p:column headerText="SNO">
+                        <h:outputText value="#{dat.sno}"/>
+                    </p:column>
+                    <p:column headerText="DATE">
+                        <h:outputText value="#{dat.invdate}"/>
+                    </p:column>
+                    <p:column headerText="CUSTOMER">
+                        <h:outputText value="#{dat.customer}"/>
+                    </p:column>
+                    <p:column headerText="CITY">
+                        <h:outputText value="#{dat.city}"/>
+                    </p:column>
+                    <p:column headerText="BILLNO.">
+                        <h:outputText value="#{dat.billno}"/>
+                    </p:column>
+                    <p:column headerText="PARTICULARS">
+                        <h:outputText value="#{dat.particulars}"/>
+                    </p:column>
+                    <p:column headerText="DEBIT.">
+                        <h:outputText value="#{dat.debit}"/>
+                    </p:column>
+                    <p:column headerText="CREDIT">
+                        <h:outputText value="#{dat.credit}"/>
+                    </p:column>
+                     
+                </p:dataTable>
+            </h:form>
+            <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>

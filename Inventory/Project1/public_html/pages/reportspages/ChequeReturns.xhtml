@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"  xmlns:ui="http://java.sun.com/jsf/facelets">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+          <ui:include src="/pages/commons/header.xhtml"/>
+            <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">ChequeReturns Report</h1>   
+                <hr/>
+            <h:form id="form1">
+            <p:growl id="msg" autoUpdate="true"/>
+                <p:panelGrid columns="9" cellpadding="5">
+                    <p:outputLabel value="From_Date" style="font-weight:bold;"/>
+                    <p:calendar id="cal1" value="#{chqret.crb.date2}" pattern="dd-MMM-yy" immediate="true" navigator="true">
+                     <p:ajax event="dateSelect" listener="#{chqret.dateSelect}" update="cal1,:form2:dataTable" />  
+                    </p:calendar>
+                    
+                    <p:outputLabel value="To_Date" style="font-weight:bold;"/>
+               <p:calendar id="cal" value="#{chqret.crb.date1}" pattern="dd-MMM-yy" navigator="true" immediate="true" >
+               
+               <p:ajax event="dateSelect" listener="#{chqret.todateSelect}" update="cal,:form2:dataTable" />  
+               </p:calendar>
+               
+                     <p:commandButton value="Dispaly" action="#{chqret.tableData}" update=":form2:dataTable"/>
+                <p:commandButton value="Print" actionListener="#{chqret.print}"/>
+                  <p:commandButton value="Refresh" actionListener="#{chqret.refresh}" update=":form2,:form1" />
+                    
+                </p:panelGrid>
+               
+            </h:form>
+             
+            <br/>
+             
+            <h:form id="form2">
+                <p:dataTable id="dataTable" var="dat" value="#{chqret.tdata}" paginator="true" rows="10">
+                    <f:facet name="header">Sales Details</f:facet>
+                    <p:column headerText="SNO">
+                        <h:outputText value="#{dat.sno}"/>
+                    </p:column>
+                    <p:column headerText="BILL NO">
+                        <h:outputText value="#{dat.billno}"/>
+                    </p:column>
+                    <p:column headerText="PNAME">
+                        <h:outputText value="#{dat.pname}"/>
+                    </p:column>
+                    <p:column headerText="CITY">
+                        <h:outputText value="#{dat.city}"/>
+                    </p:column>
+                    <p:column headerText="REPRESENT">
+                        <h:outputText value="#{dat.represent}"/>
+                    </p:column>
+                    <p:column headerText="CHQ.DATE">
+                        <h:outputText value="#{dat.chqdate}"/>
+                    </p:column>
+                    <p:column headerText="CHQ.NUMBER">
+                        <h:outputText value="#{dat.chqno}"/>
+                    </p:column>
+                    <p:column headerText="AMOUNT" footerText="#{chqret.amount1}">
+                        <h:outputText value="#{dat.amount}"/>
+                    </p:column>
+                      <p:column headerText="BANK CHARGE" footerText="#{chqret.amount2}">
+                        <h:outputText value="#{dat.bnkcharge}"/>
+                    </p:column>
+                      <p:column headerText="CAQRET.DATE">
+                        <h:outputText value="#{dat.retdate}"/>
+                    </p:column>
+                      <p:column headerText="NET.AMOUNT" footerText="#{chqret.amount}">
+                        <h:outputText value="#{dat.ntamt}"/>
+                    </p:column>
+             
+                 
+                </p:dataTable>
+            </h:form>
+            <ui:include src="/pages/commons/footer.xhtml"/>
+    </h:body></html>
+</f:view>

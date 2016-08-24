@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <h:head>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90% !important;
+            }
+
+            .ui-layout-unit-content {
+                background-image: url('images/add.jpg');
+                background-size: 100%
+            }
+        </style>
+        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/pages/commons/style_1.css"/>
+        </h:head>
+        <h:body>
+        <ui:include src="/pages/commons/header.xhtml"/>
+         <h1 align="center"
+                style="color:Teal; text-align:center; font-family:Verdana, Arial, Helvetica, sans-serif;">Sales Monthly Reports</h1> 
+            <table>
+                <tr>
+                    <td>
+                        <h:form id="form1">
+                            <h:panelGrid columns="4" cellpadding="5">
+                                <p:outputLabel value="From_Date" style="font-weight:bold;"/>
+                                <p:calendar id="cal1" value="#{monthly.smb.date2}" pattern="dd-MMM-yy" immediate="true"
+                                            navigator="true">
+                                    <p:ajax event="dateSelect" listener="#{monthly.dateSelect}" update="cal1,:form2:dataTable"/>
+                                </p:calendar>
+                                <p:outputLabel value="To_Date" style="font-weight:bold;"/>
+                                <p:calendar id="cal" value="#{monthly.smb.date1}" pattern="dd-MMM-yy" navigator="true"
+                                            immediate="true">
+                                    <p:ajax event="dateSelect" listener="#{monthly.todateSelect}" update="cal,:form2:dataTable"/>
+                                </p:calendar>
+                                <h:outputLabel value="Tax_Type" style="font-weight:bold;"/>
+                                <p:selectOneMenu value="#{monthly.smb.type}">
+                                    <f:selectItems value="#{monthly.taxList}"/>
+                                    <p:ajax update=":form2:dataTable" listener="#{monthly.typeChanged}" />
+                                </p:selectOneMenu>
+                                <h:outputText value="    "/>
+                                <p:selectBooleanCheckbox value="#{monthly.smb.cst}" itemLabel=" CST Sales">
+                                <p:ajax update=":form2:dataTable" listener="#{monthly.cstChanged}"/>
+                                
+                                
+                                </p:selectBooleanCheckbox>
+                            </h:panelGrid>
+                        </h:form>
+                    </td>
+                    <td align="center" valign="middle">
+                        <p:commandButton value="Dispaly" action="#{monthly.tableData}" update=":form2:dataTable"/>
+                         
+                        <p:commandButton value="Print" action="#{monthly.print}"/>
+                         
+                        <p:commandButton value="Refresh" actionListener="#{monthly.refresh}" update=":form2,:form1"/>
+                    </td>
+                </tr>
+            </table>
+            <h:form id="form2">
+                <p:dataTable id="dataTable" var="dat" value="#{monthly.tdata1}" paginator="true" rows="10" resizableColumns="true">
+                    <f:facet name="header">Sales Details</f:facet>
+                    <p:column headerText="SNO">
+                        <h:outputText value="#{dat.sno}"/>
+                    </p:column>
+                    <p:column headerText="BILLDATE">
+                        <h:outputText value="#{dat.invdate}"/>
+                    </p:column>
+                    <p:column headerText="ACCNAME">
+                        <h:outputText value="#{dat.acname}"/>
+                    </p:column>
+                    <p:column headerText="CITY">
+                        <h:outputText value="#{dat.city}"/>
+                    </p:column>
+                    <p:column headerText="GROX" footerText="#{monthly.gros}" >
+                        <h:outputText value="#{dat.net}"/>
+                    </p:column>
+                    <p:column headerText="TAX" footerText="#{monthly.stax}">
+                        <h:outputText value="#{dat.salestax}"/>
+                    </p:column>
+                    <p:column headerText="POSTAGE" footerText="#{monthly.pos}">
+                        <h:outputText value="#{dat.postage}"/>
+                    </p:column>
+                    <p:column headerText="PACK_AUTO" footerText="#{monthly.oto}"> 
+                        <h:outputText value="#{dat.mixvalue}"/>
+                    </p:column>
+                    <p:column headerText="OTHERS" footerText="#{monthly.otr}">
+                        <h:outputText value="#{dat.others}"/>
+                    </p:column>
+                    <p:column headerText="ROUND OFF" footerText="#{monthly.ron}">
+                        <h:outputText value="#{dat.roundof}"/>
+                    </p:column>
+                    <p:column headerText="NET AMOUNT" footerText="#{monthly.amount}">
+                        <h:outputText value="#{dat.invvalue}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                       
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+             <ui:include src="/pages/commons/footer.xhtml"/>
+        </h:body>
+    </html>
+</f:view>
